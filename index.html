@@ -1,0 +1,2858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoxxieVR - Gorilla Tag Mayhem</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js for 3D banana animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <!-- Particle.js for background effects -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Typed.js for text animations -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Howler.js for sound effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <style>
+        /* ========== CSS Reset and Base Styles ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff49db;
+            --secondary: #00eeff;
+            --tertiary: #ffcc00;
+            --quaternary: #66ff66;
+            --bg-dark: #121212;
+            --bg-darker: #0a0a0a;
+            --bg-purple: #241734;
+            --text-light: #f5f5f5;
+            --text-dark: #151515;
+            --banana-yellow: #ffd700;
+            --font-main: 'Nunito', sans-serif;
+            --font-display: 'Bangers', cursive;
+            --font-pixel: 'Press Start 2P', cursive;
+            --font-retro: 'VT323', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            scroll-padding-top: 70px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+        }
+
+        /* ========== Video TV Static Effect ========== */
+        .tv-static {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        .tv-static::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            animation: staticNoise 0.2s infinite;
+        }
+
+        @keyframes staticNoise {
+            0% { transform: translate(-10%, -10%); }
+            10% { transform: translate(-5%, -10%); }
+            20% { transform: translate(-0%, -10%); }
+            30% { transform: translate(-7%, -5%); }
+            40% { transform: translate(-5%, -10%); }
+            50% { transform: translate(-10%, 0%); }
+            60% { transform: translate(-15%, -5%); }
+            70% { transform: translate(-5%, -15%); }
+            80% { transform: translate(-10%, -5%); }
+            90% { transform: translate(-5%, -10%); }
+            100% { transform: translate(-10%, -10%); }
+        }
+
+        /* ========== VHS Effect ========== */
+        .vhs-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 9996;
+        }
+
+        .vhs-effect::before, .vhs-effect::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .vhs-effect::before {
+            background: repeating-linear-gradient(
+                transparent 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 2px,
+                transparent 3px
+            );
+        }
+        
+        .vhs-effect::after {
+            background: linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.1),
+                rgba(0, 255, 0, 0.1),
+                rgba(0, 0, 255, 0.1)
+            );
+            animation: vhsColorShift 6s infinite;
+            mix-blend-mode: color;
+        }
+        
+        @keyframes vhsColorShift {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* ========== Glitch Effects ========== */
+        .glitch-container {
+            position: relative;
+            display: inline-block;
+            transform-style: preserve-3d;
+        }
+
+        .glitch-text {
+            position: relative;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--secondary);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--primary);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 94px, 0);
+                transform: skew(0.85deg);
+            }
+            5% {
+                clip: rect(70px, 9999px, 71px, 0);
+                transform: skew(0.15deg);
+            }
+            10% {
+                clip: rect(5px, 9999px, 66px, 0);
+                transform: skew(0.75deg);
+            }
+            15% {
+                clip: rect(89px, 9999px, 14px, 0);
+                transform: skew(0.65deg);
+            }
+            20% {
+                clip: rect(73px, 9999px, 52px, 0);
+                transform: skew(0.2deg);
+            }
+            25% {
+                clip: rect(94px, 9999px, 98px, 0);
+                transform: skew(0.45deg);
+            }
+            30% {
+                clip: rect(11px, 9999px, 35px, 0);
+                transform: skew(0.8deg);
+            }
+            35% {
+                clip: rect(8px, 9999px, 51px, 0);
+                transform: skew(0.1deg);
+            }
+            40% {
+                clip: rect(84px, 9999px, 91px, 0);
+                transform: skew(0.2deg);
+            }
+            45% {
+                clip: rect(82px, 9999px, 64px, 0);
+                transform: skew(0.15deg);
+            }
+            50% {
+                clip: rect(34px, 9999px, 38px, 0);
+                transform: skew(0.2deg);
+            }
+            55% {
+                clip: rect(33px, 9999px, 21px, 0);
+                transform: skew(0.8deg);
+            }
+            60% {
+                clip: rect(20px, 9999px, 71px, 0);
+                transform: skew(0.6deg);
+            }
+            65% {
+                clip: rect(87px, 9999px, 35px, 0);
+                transform: skew(0.75deg);
+            }
+            70% {
+                clip: rect(41px, 9999px, 47px, 0);
+                transform: skew(0.25deg);
+            }
+            75% {
+                clip: rect(46px, 9999px, 36px, 0);
+                transform: skew(0.85deg);
+            }
+            80% {
+                clip: rect(66px, 9999px, 79px, 0);
+                transform: skew(0.6deg);
+            }
+            85% {
+                clip: rect(39px, 9999px, 49px, 0);
+                transform: skew(0.95deg);
+            }
+            90% {
+                clip: rect(9px, 9999px, 67px, 0);
+                transform: skew(0.65deg);
+            }
+            95% {
+                clip: rect(47px, 9999px, 54px, 0);
+                transform: skew(0.35deg);
+            }
+            100% {
+                clip: rect(60px, 9999px, 74px, 0);
+                transform: skew(0.75deg);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(17px, 9999px, 48px, 0);
+                transform: skew(0.15deg);
+            }
+            5% {
+                clip: rect(85px, 9999px, 27px, 0);
+                transform: skew(0.35deg);
+            }
+            10% {
+                clip: rect(37px, 9999px, 92px, 0);
+                transform: skew(0.05deg);
+            }
+            15% {
+                clip: rect(91px, 9999px, 29px, 0);
+                transform: skew(0.05deg);
+            }
+            20% {
+                clip: rect(7px, 9999px, 78px, 0);
+                transform: skew(0.7deg);
+            }
+            25% {
+                clip: rect(21px, 9999px, 31px, 0);
+                transform: skew(0.8deg);
+            }
+            30% {
+                clip: rect(35px, 9999px, 56px, 0);
+                transform: skew(0.9deg);
+            }
+            35% {
+                clip: rect(70px, 9999px, 14px, 0);
+                transform: skew(0.3deg);
+            }
+            40% {
+                clip: rect(41px, 9999px, 31px, 0);
+                transform: skew(0.3deg);
+            }
+            45% {
+                clip: rect(28px, 9999px, 99px, 0);
+                transform: skew(0.6deg);
+            }
+            50% {
+                clip: rect(82px, 9999px, 31px, 0);
+                transform: skew(0.05deg);
+            }
+            55% {
+                clip: rect(31px, 9999px, 97px, 0);
+                transform: skew(0.7deg);
+            }
+            60% {
+                clip: rect(18px, 9999px, 23px, 0);
+                transform: skew(0.05deg);
+            }
+            65% {
+                clip: rect(60px, 9999px, 74px, 0);
+                transform: skew(0.4deg);
+            }
+            70% {
+                clip: rect(61px, 9999px, 27px, 0);
+                transform: skew(0.75deg);
+            }
+            75% {
+                clip: rect(39px, 9999px, 40px, 0);
+                transform: skew(0.5deg);
+            }
+            80% {
+                clip: rect(95px, 9999px, 59px, 0);
+                transform: skew(0.25deg);
+            }
+            85% {
+                clip: rect(37px, 9999px, 25px, 0);
+                transform: skew(0.6deg);
+            }
+            90% {
+                clip: rect(90px, 9999px, 93px, 0);
+                transform: skew(0.05deg);
+            }
+            95% {
+                clip: rect(95px, 9999px, 95px, 0);
+                transform: skew(0.85deg);
+            }
+            100% {
+                clip: rect(77px, 9999px, 98px, 0);
+                transform: skew(0.35deg);
+            }
+        }
+
+        @keyframes glitch-skew {
+            0% {
+                transform: skew(1deg);
+            }
+            10% {
+                transform: skew(-0.5deg);
+            }
+            20% {
+                transform: skew(0.8deg);
+            }
+            30% {
+                transform: skew(0.5deg);
+            }
+            40% {
+                transform: skew(-0.9deg);
+            }
+            50% {
+                transform: skew(0.1deg);
+            }
+            60% {
+                transform: skew(-0.2deg);
+            }
+            70% {
+                transform: skew(0.9deg);
+            }
+            80% {
+                transform: skew(-0.7deg);
+            }
+            90% {
+                transform: skew(1deg);
+            }
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        /* ========== CRT Effects ========== */
+        .crt-effect {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.02));
+            background-size: 100% 2px, 3px 100%;
+        }
+
+        .crt-effect::before {
+            content: "";
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 70%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: 9999;
+        }
+
+        .crt-effect::after {
+            content: "";
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 9999;
+            animation: crtFlicker 8s infinite;
+        }
+
+        @keyframes crtFlicker {
+            0% {
+                opacity: 0.15;
+            }
+            1% {
+                opacity: 0.5;
+            }
+            2% {
+                opacity: 0.15;
+            }
+            3% {
+                opacity: 0.5;
+            }
+            4% {
+                opacity: 0.15;
+            }
+            5% {
+                opacity: 0.1;
+            }
+            6% {
+                opacity: 0.15;
+            }
+            11% {
+                opacity: 0.1;
+            }
+            12% {
+                opacity: 0.15;
+            }
+            100% {
+                opacity: 0.15;
+            }
+        }
+
+        /* ========== Scrollbar Styling ========== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff79c6;
+        }
+
+        /* ========== Banana Cursor ========== */
+        .banana-cursor {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            font-size: 28px;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+        }
+
+        /* ========== Navigation ========== */
+        nav {
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary);
+            transform: rotate(-1deg);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 3px 3px 0 var(--secondary);
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(-2deg) scale(1.1);
+            text-shadow: 4px 4px 0 var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 73, 219, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .nav-links a.sound-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-light);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== Hero Section ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, var(--bg-purple), var(--bg-dark));
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--primary);
+            text-shadow: 4px 4px 0 var(--secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .hero-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 0 20px rgba(255, 73, 219, 0.6);
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+            background-color: var(--bg-purple);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-img::before {
+            content: "🦍";
+            position: absolute;
+            font-size: 150px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* ========== Floating Bananas ========== */
+        .floating-bananas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .banana {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatBanana 15s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes floatBanana {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* ========== Subscribe Button ========== */
+        .subscribe-btn {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), #ff0000);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 73, 219, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-bottom: 2rem;
+            transform: rotate(-2deg);
+        }
+
+        .subscribe-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff0000, var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 7px 20px rgba(255, 73, 219, 0.6);
+        }
+
+        .subscribe-btn:hover::before {
+            opacity: 1;
+        }
+
+        .subscribe-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ========== Team Section ========== */
+        .team {
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
+        }
+
+        .team h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--secondary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            transform: rotate(-2deg);
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: rotate(var(--rotation));
+            --rotation: 0deg;
+        }
+
+        .team-member:nth-child(1) {
+            --rotation: 2deg;
+            border-top: 3px solid var(--primary);
+        }
+
+        .team-member:nth-child(2) {
+            --rotation: -1deg;
+            border-top: 3px solid var(--secondary);
+        }
+
+        .team-member:nth-child(3) {
+            --rotation: 1deg;
+            border-top: 3px solid var(--tertiary);
+        }
+
+        .team-member:nth-child(4) {
+            --rotation: -2deg;
+            border-top: 3px solid var(--quaternary);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px) rotate(0deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary);
+            background-color: var(--bg-purple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member:nth-child(1) img::before {
+            content: "🦍";
+            position: absolute;
+            font-size: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .team-member:nth-child(2) img::before {
+            content: "🧙‍♂️";
+            position: absolute;
+            font-size: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .team-member:nth-child(3) img::before {
+            content: "🎯";
+            position: absolute;
+            font-size: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .team-member:nth-child(4) img::before {
+            content: "💰";
+            position: absolute;
+            font-size: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .team-member h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .team-member .role {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* ========== Videos Section ========== */
+        .videos {
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(to bottom, #1a1a2e, var(--bg-dark));
+            position: relative;
+        }
+
+        .videos h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--secondary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            transform: rotate(2deg);
+        }
+
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            transform: rotate(var(--rotation));
+            --rotation: 0deg;
+        }
+
+        .video:nth-child(1) {
+            --rotation: -1deg;
+        }
+
+        .video:nth-child(2) {
+            --rotation: 2deg;
+        }
+
+        .video:nth-child(3) {
+            --rotation: -2deg;
+        }
+
+        .video:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ========== Game Section ========== */
+        .game-section {
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-purple));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-section h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--tertiary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            transform: rotate(-1deg);
+        }
+
+        .game-section p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-character {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            transition: all 0.1s ease;
+        }
+
+        .game-banana {
+            position: absolute;
+            font-size: 2rem;
+            animation: fallingBanana 3s linear;
+        }
+
+        .game-bomb {
+            position: absolute;
+            font-size: 2rem;
+            animation: fallingBomb 2.5s linear;
+        }
+
+        .game-score {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .game-lives {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .game-start {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1rem 2rem;
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--tertiary));
+            color: var(--text-light);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .game-start:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-start:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .game-over {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-over.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .game-over h3 {
+            font-family: var(--font-pixel);
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 var(--secondary);
+        }
+
+        .game-over p {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-over button {
+            padding: 0.8rem 1.5rem;
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, var(--primary), var(--tertiary));
+            color: var(--text-light);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .game-over button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-over button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes fallingBanana {
+            0% {
+                top: -50px;
+                transform: translateX(var(--x-pos)) rotate(0deg);
+            }
+            100% {
+                top: 400px;
+                transform: translateX(var(--x-pos)) rotate(360deg);
+            }
+        }
+
+        @keyframes fallingBomb {
+            0% {
+                top: -50px;
+                transform: translateX(var(--x-pos)) rotate(0deg);
+            }
+            100% {
+                top: 400px;
+                transform: translateX(var(--x-pos)) rotate(360deg);
+            }
+        }
+
+        /* ========== Meme Generator ========== */
+        .meme-generator {
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(to bottom, var(--bg-purple), var(--bg-dark));
+            position: relative;
+        }
+
+        .meme-generator h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--quaternary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            transform: rotate(1deg);
+        }
+
+        .meme-generator p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .meme-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .meme-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .meme-form input,
+        .meme-form textarea {
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .meme-form input:focus,
+        .meme-form textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0, 238, 255, 0.3);
+        }
+
+        .meme-form button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--quaternary));
+            color: var(--text-light);
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .meme-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .meme-form button:active {
+            transform: scale(0.95);
+        }
+
+        .meme-preview {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background-color: var(--bg-darker);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .meme-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .meme-text {
+            position: absolute;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black;
+            text-transform: uppercase;
+        }
+
+        .meme-text-top {
+            top: 0;
+        }
+
+        .meme-text-bottom {
+            bottom: 0;
+        }
+
+        /* ========== Sound Board ========== */
+        .sound-board {
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
+            position: relative;
+        }
+
+        .sound-board h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--secondary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            transform: rotate(-2deg);
+        }
+
+        .sound-board p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .sound-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sound-button {
+            padding: 1.5rem 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: rotate(var(--rotation));
+            --rotation: 0deg;
+        }
+
+        .sound-button:nth-child(1) {
+            --rotation: 2deg;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .sound-button:nth-child(2) {
+            --rotation: -1deg;
+            background: linear-gradient(45deg, var(--secondary), var(--tertiary));
+        }
+
+        .sound-button:nth-child(3) {
+            --rotation: 1deg;
+            background: linear-gradient(45deg, var(--tertiary), var(--quaternary));
+        }
+
+        .sound-button:nth-child(4) {
+            --rotation: -2deg;
+            background: linear-gradient(45deg, var(--quaternary), var(--primary));
+        }
+
+        .sound-button:nth-child(5) {
+            --rotation: 3deg;
+            background: linear-gradient(45deg, var(--primary), var(--tertiary));
+        }
+
+        .sound-button:nth-child(6) {
+            --rotation: -3deg;
+            background: linear-gradient(45deg, var(--secondary), var(--quaternary));
+        }
+
+        .sound-button:hover {
+            transform: translateY(-5px) rotate(0deg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .sound-button:active {
+            transform: translateY(0) scale(0.95) rotate(0deg);
+        }
+
+        /* ========== Social Media ========== */
+        .social-media {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, #1a1a2e, var(--bg-purple));
+        }
+
+        .social-media h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--primary);
+            text-shadow: 3px 3px 0 var(--secondary);
+            margin-bottom: 2rem;
+            transform: rotate(1deg);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), #ff79c6);
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 73, 219, 0.4);
+            transform: rotate(var(--rotation));
+            --rotation: 0deg;
+        }
+
+        .social-icons a:nth-child(1) {
+            --rotation: 5deg;
+        }
+
+        .social-icons a:nth-child(2) {
+            --rotation: -3deg;
+        }
+
+        .social-icons a:nth-child(3) {
+            --rotation: 2deg;
+        }
+
+        .social-icons a:nth-child(4) {
+            --rotation: -4deg;
+        }
+
+        .social-icons a:nth-child(5) {
+            --rotation: 3deg;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1) rotate(360deg);
+            box-shadow: 0 7px 20px rgba(255, 73, 219, 0.6);
+        }
+
+        /* ========== Newsletter ========== */
+        .newsletter {
+            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, var(--bg-purple), var(--bg-dark));
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--tertiary);
+            text-shadow: 3px 3px 0 var(--primary);
+            margin-bottom: 1.5rem;
+            transform: rotate(-2deg);
+        }
+
+        .newsletter p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            padding: 1rem;
+            border: 2px solid var(--tertiary);
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(255, 73, 219, 0.3);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--tertiary), var(--quaternary));
+            color: var(--text-dark);
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            align-self: center;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .newsletter-form button:active {
+            transform: scale(0.95);
+        }
+
+        /* ========== FAQ Section ========== */
+        .faq {
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
+            position: relative;
+        }
+
+        .faq h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--quaternary);
+            text-shadow: 3px 3px 0 var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            transform: rotate(1deg);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--quaternary);
+            transform: rotate(var(--rotation));
+            --rotation: 0deg;
+        }
+
+        .faq-item:nth-child(1) {
+            --rotation: 1deg;
+            border-left-color: var(--primary);
+        }
+
+        .faq-item:nth-child(2) {
+            --rotation: -1deg;
+            border-left-color: var(--secondary);
+        }
+
+        .faq-item:nth-child(3) {
+            --rotation: 0.5deg;
+            border-left-color: var(--tertiary);
+        }
+
+        .faq-item:nth-child(4) {
+            --rotation: -0.5deg;
+            border-left-color: var(--quaternary);
+        }
+
+        .faq-item:nth-child(5) {
+            --rotation: 1deg;
+            border-left-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1rem 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ========== Secret Bananas ========== */
+        .secret-banana {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            animation: secretBananaFloat 5s ease-in-out infinite;
+            z-index: 1000;
+        }
+
+        .secret-banana.show {
+            bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .secret-banana:hover {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        @keyframes secretBananaFloat {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== Back to Top Button ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+            animation: pulse 2s infinite;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+
+        footer p:first-child {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary);
+            opacity: 1;
+            transform: rotate(-1deg);
+        }
+
+        /* ========== Special Easter Eggs ========== */
+        .konami-code {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom, var(--primary), var(--bg-dark));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .konami-code.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .konami-code h2 {
+            font-family: var(--font-pixel);
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 0 var(--secondary);
+        }
+
+        .konami-code p {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .konami-code button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--secondary), var(--tertiary));
+            color: var(--text-dark);
+            font-family: var(--font-pixel);
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .konami-code button:hover {
+            transform: scale(1.1);
+        }
+
+        .rainbow-mode {
+            animation: rainbowMode 5s linear infinite;
+        }
+
+        @keyframes rainbowMode {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* ========== Media Queries ========== */
+        @media screen and (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero-img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .team-member {
+                padding: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 0;
+                height: 100vh;
+                background-color: var(--bg-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                overflow: hidden;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                width: 300px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .burger {
+                display: block;
+                z-index: 1000;
+            }
+
+            .burger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.active div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .burger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .team h2,
+            .videos h2,
+            .social-media h2,
+            .game-section h2,
+            .meme-generator h2,
+            .sound-board h2,
+            .faq h2,
+            .newsletter h2 {
+                font-size: 2.5rem;
+            }
+
+            .social-icons {
+                gap: 1rem;
+            }
+
+            .social-icons a {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .game-container {
+                height: 300px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .team h2,
+            .videos h2,
+            .social-media h2,
+            .game-section h2,
+            .meme-generator h2,
+            .sound-board h2,
+            .faq h2,
+            .newsletter h2 {
+                font-size: 2rem;
+            }
+
+            .subscribe-btn {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .team-container {
+                grid-template-columns: 1fr;
+            }
+
+            .videos-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sound-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .game-container {
+                height: 250px;
+            }
+
+            .social-icons a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body id="home">
+    <!-- TV Static Effect -->
+    <div class="tv-static"></div>
+    
+    <!-- VHS Effect -->
+    <div class="vhs-effect"></div>
+    
+    <!-- CRT Effect -->
+    <div class="crt-effect"></div>
+
+    <!-- Banana Cursor -->
+    <div class="banana-cursor">🍌</div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">MoxxieVR</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#team">Team</a>
+            <a href="#videos">Videos</a>
+            <a href="#game">Game</a>
+            <a href="#meme">Meme</a>
+            <a href="#sounds">Sounds</a>
+            <a href="#social">Social</a>
+            <a href="#faq">FAQ</a>
+            <a href="#" class="sound-toggle"><i class="fas fa-volume-up"></i> Sound</a>
+        </div>
+        <div class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-bananas">
+            <!-- Bananas will be added dynamically with JavaScript -->
+        </div>
+        <div class="hero-img"></div>
+        <div class="glitch-container">
+            <h1 class="glitch-text" data-text="MOXXIEVR">MOXXIEVR</h1>
+        </div>
+        <p>Welcome to the absolute CHAOS that is MoxxieVR - where Gorilla Tag meets questionable life choices and somehow becomes YouTube content that people actually watch!</p>
+        <a href="https://www.youtube.com/@MoxxieVR?sub_confirmation=1" target="_blank" class="subscribe-btn">
+            <i class="fab fa-youtube"></i> SUBSCRIBE NOW
+        </a>
+        <p id="dynamic-text"></p>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <h2>THE (BARELY) FUNCTIONAL TEAM</h2>
+        <div class="team-container">
+            <div class="team-member">
+                <div class="img-container">
+                    <img alt="MoxxieVR">
+                </div>
+                <h3>MoxxieVR</h3>
+                <p class="role">The Legend Himself</p>
+                <p>The gorilla-shaped mastermind who somehow dodges Meta's ban hammer while making content that makes people question their life choices... and then subscribe anyway.</p>
+            </div>
+            <div class="team-member">
+                <div class="img-container">
+                    <img alt="OddsJuix">
+                </div>
+                <h3>OddsJuix</h3>
+                <p class="role">Website Wizard</p>
+                <p>The digital duct tape holding this website together. Can fix any bug with a Red Bull and a prayer. Responsible for any pixels that aren't exploding on your screen right now.</p>
+            </div>
+            <div class="team-member">
+                <div class="img-container">
+                    <img alt="Polo">
+                </div>
+                <h3>Polo</h3>
+                <p class="role">Idea Generator</p>
+                <p>Throws out video ideas like confetti at a parade. Half of them are pure genius, the other half would probably get us arrested. We usually go with the second half.</p>
+            </div>
+            <div class="team-member">
+                <div class="img-container">
+                    <img alt="Flowzz">
+                </div>
+                <h3>Flowzz</h3>
+                <p class="role">Monetization Guru</p>
+                <p>Desperately trying to teach us how to make money without becoming a meme. So far, unsuccessful. Keeps muttering "SEO" in his sleep and crying about CPM rates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="videos" id="videos">
+        <h2>GORILLA MAYHEM</h2>
+        <div class="videos-container">
+            <!-- Videos will be loaded dynamically from the database -->
+        <div id="videos-container"></div>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section class="game-section" id="game">
+        <h2>BANANA CATCHER</h2>
+        <p>Help Moxxie catch falling bananas while avoiding the bombs! Use left and right arrow keys to move.</p>
+        <div class="game-container">
+            <div class="game-score">Score: 0</div>
+            <div class="game-lives">Lives: 3</div>
+            <div class="game-character">🦍</div>
+            <button class="game-start">START GAME</button>
+            <div class="game-over">
+                <h3>GAME OVER</h3>
+                <p>Final Score: <span class="final-score">0</span></p>
+                <button class="restart-game">PLAY AGAIN</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meme Generator -->
+    <section class="meme-generator" id="meme">
+        <h2>GORILLA MEME FACTORY</h2>
+        <p>Create your own Gorilla Tag memes! Just add your text and let the magic happen.</p>
+        <div class="meme-container">
+            <div class="meme-form">
+                <input type="text" id="top-text" placeholder="Top Text">
+                <input type="text" id="bottom-text" placeholder="Bottom Text">
+                <select id="meme-template">
+                    <option value="gorilla1">Angry Gorilla</option>
+                    <option value="gorilla2">Surprised Gorilla</option>
+                    <option value="gorilla3">Dancing Gorilla</option>
+                    <option value="gorilla4">Banana Gorilla</option>
+                    <option value="gorilla5">Space Gorilla</option>
+                </select>
+                <button id="generate-meme">CREATE MEME</button>
+            </div>
+            <div class="meme-preview">
+                <div class="meme-text meme-text-top">TOP TEXT</div>
+                <div class="meme-text meme-text-bottom">BOTTOM TEXT</div>
+                <div class="meme-preview-img" style="background-color: #241734; display: flex; justify-content: center; align-items: center; font-size: 8rem;">🦍</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sound Board -->
+    <section class="sound-board" id="sounds">
+        <h2>GORILLA SOUNDBOARD</h2>
+        <p>Click the buttons to play authentic gorilla tag sounds! Warning: May cause uncontrollable laughter and/or mild confusion.</p>
+        <div class="sound-buttons">
+            <button class="sound-button" data-sound="gorilla1">Gorilla Screech</button>
+            <button class="sound-button" data-sound="gorilla2">Banana Time</button>
+            <button class="sound-button" data-sound="gorilla3">Tag Sound</button>
+            <button class="sound-button" data-sound="gorilla4">Victory Hoot</button>
+            <button class="sound-button" data-sound="gorilla5">Jungle Beat</button>
+            <button class="sound-button" data-sound="gorilla6">Secret Sound</button>
+        </div>
+    </section>
+
+    <!-- Social Media -->
+    <section class="social-media" id="social">
+        <h2>FOLLOW THE MADNESS</h2>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@MoxxieVR" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <h2>JOIN THE MONKEY BUSINESS</h2>
+        <p>Subscribe to our newsletter for exclusive content, behind-the-scenes chaos, and possibly some actual useful information (no promises on that last one).</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">SUBSCRIBE</button>
+        </form>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <h2>FREQUENTLY ASKED QUESTIONS</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is MoxxieVR actually a gorilla?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We've conducted extensive scientific research and can confirm that MoxxieVR is approximately 60% gorilla, 30% caffeine, and 10% questionable life decisions. DNA tests were inconclusive as the lab technician got distracted watching his videos.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I join the MoxxieVR team?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>First, question all your life choices that led you to this point. Then, demonstrate your ability to survive chaos by submitting a video of yourself trying to explain Gorilla Tag to your grandparents. Bonus points if you can do it while balancing a banana on your head.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are you actually selling bananas?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No, we're not selling bananas. Although Flowzz has suggested it as a "viable revenue stream" at least 17 times in our team meetings. We've had to hide the banana-shaped business plan he keeps trying to present.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is this website supposed to look this chaotic?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, this is the result of carefully calculated chaos, meticulously designed to capture the essence of MoxxieVR. OddsJuix spent hours making it look like it was made by someone who just discovered HTML while simultaneously having a sugar rush.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are you starting a cult?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely not. We're starting a "passionate community of like-minded individuals who share an enthusiasm for primate-themed virtual reality escapades." Totally different thing. (Polo, please stop ordering the robes. We talked about this.)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>made with love by coconutz</p>
+        <p>2025, coconutz, all rights confused, all lefts reserved</p>
+        <p>2025 moxxievr, all right reserved.</p>
+    </footer>
+
+    <div class="secret-banana" id="secret-banana">🍌</div>
+    <a href="#home" class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Konami Code Easter Egg -->
+    <div class="konami-code" id="konami-code">
+        <h2>BANANA MODE ACTIVATED!</h2>
+        <p>You've discovered the secret banana mode! Now everything is bananas!</p>
+        <button id="close-konami">RETURN TO MONKE</button>
+    </div>
+
+    <script>
+        // Document Ready Function
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch Videos from the database
+            fetch('/api/videos')
+                .then(response => response.json())
+                .then(videos => {
+                    const videosContainer = document.getElementById('videos-container');
+                    
+                    if (videos && videos.length > 0) {
+                        videos.forEach(video => {
+                            const videoDiv = document.createElement('div');
+                            videoDiv.className = 'video';
+                            videoDiv.innerHTML = `
+                                <iframe src="https://www.youtube.com/embed/${video.youtube_id}" 
+                                    title="${video.title}" allowfullscreen></iframe>
+                            `;
+                            videosContainer.appendChild(videoDiv);
+                        });
+                    } else {
+                        // Fallback if no videos in database
+                        const fallbackVideo = document.createElement('div');
+                        fallbackVideo.className = 'video';
+                        fallbackVideo.innerHTML = `
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                title="YouTube video" allowfullscreen></iframe>
+                        `;
+                        videosContainer.appendChild(fallbackVideo);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching videos:', error);
+                    // Fallback for error
+                    const videosContainer = document.getElementById('videos-container');
+                    const fallbackVideo = document.createElement('div');
+                    fallbackVideo.className = 'video';
+                    fallbackVideo.innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="YouTube video" allowfullscreen></iframe>
+                    `;
+                    videosContainer.appendChild(fallbackVideo);
+                });
+                
+            // Fetch Meme Templates from the database
+            fetch('/api/memes/templates')
+                .then(response => response.json())
+                .then(templates => {
+                    const templateSelect = document.getElementById('meme-template');
+                    
+                    if (templates && templates.length > 0) {
+                        // Clear existing options
+                        templateSelect.innerHTML = '';
+                        
+                        templates.forEach(template => {
+                            const option = document.createElement('option');
+                            option.value = template.id;
+                            option.textContent = template.name;
+                            option.setAttribute('data-emoji', template.emoji);
+                            templateSelect.appendChild(option);
+                        });
+                        
+                        // Trigger change to update the preview
+                        const changeEvent = new Event('change');
+                        templateSelect.dispatchEvent(changeEvent);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching meme templates:', error);
+                });
+            // Initialize Particle.js for background effects
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80 },
+                        color: { value: '#ff49db' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#ff49db',
+                            opacity: 0.4,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: { enable: true, mode: 'repulse' },
+                            onclick: { enable: true, mode: 'push' },
+                            resize: true
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // Variables and DOM Elements
+            const navLinks = document.querySelector('.nav-links');
+            const burger = document.querySelector('.burger');
+            const backToTop = document.getElementById('back-to-top');
+            const secretBanana = document.getElementById('secret-banana');
+            const konamiCode = document.getElementById('konami-code');
+            const closeKonami = document.getElementById('close-konami');
+            const soundToggle = document.querySelector('.sound-toggle');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const bananaCursor = document.querySelector('.banana-cursor');
+            const gameContainer = document.querySelector('.game-container');
+            const gameCharacter = document.querySelector('.game-character');
+            const gameScoreDisplay = document.querySelector('.game-score');
+            const gameLivesDisplay = document.querySelector('.game-lives');
+            const gameStartBtn = document.querySelector('.game-start');
+            const gameOverScreen = document.querySelector('.game-over');
+            const finalScoreDisplay = document.querySelector('.final-score');
+            const restartGameBtn = document.querySelector('.restart-game');
+            const memeTopText = document.getElementById('top-text');
+            const memeBottomText = document.getElementById('bottom-text');
+            const memeTemplate = document.getElementById('meme-template');
+            const generateMemeBtn = document.getElementById('generate-meme');
+            const memePreviewTopText = document.querySelector('.meme-text-top');
+            const memePreviewBottomText = document.querySelector('.meme-text-bottom');
+            const memePreviewImg = document.querySelector('.meme-preview-img');
+            const soundButtons = document.querySelectorAll('.sound-button');
+            const newsletterForm = document.querySelector('.newsletter-form');
+            const typedTextElement = document.getElementById('dynamic-text');
+            const floatingBananas = document.querySelector('.floating-bananas');
+
+            // Sound Effects
+            const sounds = {
+                click: new Howl({
+                    src: ['https://assets.codepen.io/21542/clickDown.wav'],
+                    volume: 0.5
+                }),
+                hover: new Howl({
+                    src: ['https://assets.codepen.io/21542/rollover1.wav'],
+                    volume: 0.2
+                }),
+                success: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_003.ogg'],
+                    volume: 0.5
+                }),
+                error: new Howl({
+                    src: ['https://assets.codepen.io/21542/error_007.ogg'],
+                    volume: 0.5
+                }),
+                banana: new Howl({
+                    src: ['https://assets.codepen.io/21542/maximize_008.ogg'],
+                    volume: 0.5
+                }),
+                gorilla1: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_001.ogg'],
+                    volume: 0.5
+                }),
+                gorilla2: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_002.ogg'],
+                    volume: 0.5
+                }),
+                gorilla3: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_003.ogg'],
+                    volume: 0.5
+                }),
+                gorilla4: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_004.ogg'],
+                    volume: 0.5
+                }),
+                gorilla5: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_005.ogg'],
+                    volume: 0.5
+                }),
+                gorilla6: new Howl({
+                    src: ['https://assets.codepen.io/21542/confirmation_006.ogg'],
+                    volume: 0.5
+                })
+            };
+
+            // State Variables
+            let isSoundOn = true;
+            let game = {
+                isPlaying: false,
+                score: 0,
+                lives: 3,
+                character: {
+                    position: gameContainer ? gameContainer.clientWidth / 2 : 0,
+                    speed: 15
+                },
+                objects: [],
+                timers: {
+                    spawn: null,
+                    gameLoop: null
+                }
+            };
+            let konamiSequence = [];
+            const konamiPattern = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // up, up, down, down, left, right, left, right, b, a
+
+            // Generate Floating Bananas
+            function generateFloatingBananas() {
+                for (let i = 0; i < 20; i++) {
+                    const banana = document.createElement('div');
+                    banana.classList.add('banana');
+                    banana.innerHTML = '🍌';
+                    banana.style.left = `${Math.random() * 100}%`;
+                    banana.style.animationDelay = `${Math.random() * 15}s`;
+                    banana.style.animationDuration = `${15 + Math.random() * 10}s`;
+                    floatingBananas.appendChild(banana);
+                }
+            }
+
+            // Initialize Typed.js
+            function initTypedJs() {
+                if (typeof Typed !== 'undefined' && typedTextElement) {
+                    new Typed(typedTextElement, {
+                        strings: [
+                            "Climbing trees and making memes...",
+                            "Avoiding ban hammers since 2023...",
+                            "More bananas than a grocery store...",
+                            "Disclaimer: No actual gorillas were harmed in the making of this content...",
+                            "60% of the time, it works every time...",
+                            "Flowzz is still trying to figure out how to monetize this bio..."
+                        ],
+                        typeSpeed: 50,
+                        backSpeed: 30,
+                        backDelay: 2000,
+                        loop: true,
+                        showCursor: true,
+                        cursorChar: '🍌'
+                    });
+                }
+            }
+
+            // Navigation and UI Functions
+            function toggleNav() {
+                navLinks.classList.toggle('active');
+                burger.classList.toggle('active');
+                if (isSoundOn) sounds.click.play();
+            }
+
+            function toggleSound() {
+                isSoundOn = !isSoundOn;
+                soundToggle.innerHTML = isSoundOn ? '<i class="fas fa-volume-up"></i> Sound' : '<i class="fas fa-volume-mute"></i> Muted';
+                if (isSoundOn) sounds.click.play();
+            }
+
+            function showBackToTop() {
+                const scrollY = window.scrollY;
+                if (scrollY > 500) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            }
+
+            function showSecretBanana() {
+                const randomAppear = Math.random() < 0.1; // 10% chance
+                if (randomAppear && !secretBanana.classList.contains('show')) {
+                    secretBanana.classList.add('show');
+                    setTimeout(() => {
+                        secretBanana.classList.remove('show');
+                    }, 5000);
+                }
+            }
+
+            function toggleFaq() {
+                this.closest('.faq-item').classList.toggle('active');
+                if (isSoundOn) sounds.click.play();
+            }
+
+            // Banana Cursor
+            function updateBananaCursor(e) {
+                bananaCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(-25deg)`;
+            }
+
+            function showBananaCursor() {
+                bananaCursor.style.display = 'block';
+            }
+
+            function hideBananaCursor() {
+                bananaCursor.style.display = 'none';
+            }
+
+            // Konami Code
+            function handleKeyDown(e) {
+                konamiSequence.push(e.keyCode);
+                if (konamiSequence.length > konamiPattern.length) {
+                    konamiSequence.shift();
+                }
+
+                if (
+                    konamiSequence.length === konamiPattern.length &&
+                    konamiSequence.every((code, index) => code === konamiPattern[index])
+                ) {
+                    activateKonamiCode();
+                }
+            }
+
+            function activateKonamiCode() {
+                konamiCode.classList.add('active');
+                document.body.classList.add('rainbow-mode');
+                if (isSoundOn) sounds.success.play();
+            }
+
+            function deactivateKonamiCode() {
+                konamiCode.classList.remove('active');
+                document.body.classList.remove('rainbow-mode');
+                if (isSoundOn) sounds.click.play();
+            }
+
+            // Game Functions
+            function startGame() {
+                if (game.isPlaying) return;
+                
+                // Reset game state
+                game.isPlaying = true;
+                game.score = 0;
+                game.lives = 3;
+                game.objects = [];
+                gameScoreDisplay.textContent = `Score: ${game.score}`;
+                gameLivesDisplay.textContent = `Lives: ${game.lives}`;
+                gameStartBtn.style.display = 'none';
+                gameOverScreen.classList.remove('active');
+                
+                // Start game timers
+                game.timers.spawn = setInterval(spawnGameObject, 1000);
+                game.timers.gameLoop = setInterval(gameLoop, 16);
+                
+                if (isSoundOn) sounds.success.play();
+            }
+
+            function endGame() {
+                game.isPlaying = false;
+                clearInterval(game.timers.spawn);
+                clearInterval(game.timers.gameLoop);
+                
+                // Clean up objects
+                game.objects.forEach(obj => {
+                    if (obj.element && obj.element.parentNode) {
+                        obj.element.parentNode.removeChild(obj.element);
+                    }
+                });
+                game.objects = [];
+                
+                // Show game over screen
+                finalScoreDisplay.textContent = game.score;
+                gameOverScreen.classList.add('active');
+                
+                if (isSoundOn) sounds.error.play();
+            }
+
+            function spawnGameObject() {
+                const isBanana = Math.random() > 0.3; // 70% chance for banana, 30% for bomb
+                const xPos = Math.random() * (gameContainer.clientWidth - 50);
+                
+                const object = document.createElement('div');
+                object.classList.add(isBanana ? 'game-banana' : 'game-bomb');
+                object.innerHTML = isBanana ? '🍌' : '💣';
+                object.style.setProperty('--x-pos', `${xPos}px`);
+                gameContainer.appendChild(object);
+                
+                game.objects.push({
+                    element: object,
+                    x: xPos,
+                    y: -50,
+                    type: isBanana ? 'banana' : 'bomb',
+                    speed: 3 + Math.random() * 2,
+                    width: 40,
+                    height: 40
+                });
+            }
+
+            function gameLoop() {
+                // Move character based on keyboard input
+                if (game.keyLeft && game.character.position > 40) {
+                    game.character.position -= game.character.speed;
+                }
+                if (game.keyRight && game.character.position < gameContainer.clientWidth - 40) {
+                    game.character.position += game.character.speed;
+                }
+                
+                gameCharacter.style.left = `${game.character.position}px`;
+                
+                // Update objects position and check collisions
+                for (let i = game.objects.length - 1; i >= 0; i--) {
+                    const obj = game.objects[i];
+                    obj.y += obj.speed;
+                    obj.element.style.top = `${obj.y}px`;
+                    
+                    // Check collision with character
+                    if (
+                        obj.y + obj.height > gameContainer.clientHeight - 60 &&
+                        obj.y < gameContainer.clientHeight - 20 &&
+                        Math.abs(obj.x - game.character.position) < 50
+                    ) {
+                        // Collision detected
+                        if (obj.type === 'banana') {
+                            game.score += 10;
+                            gameScoreDisplay.textContent = `Score: ${game.score}`;
+                            if (isSoundOn) sounds.banana.play();
+                        } else {
+                            game.lives--;
+                            gameLivesDisplay.textContent = `Lives: ${game.lives}`;
+                            if (isSoundOn) sounds.error.play();
+                            if (game.lives <= 0) {
+                                endGame();
+                                return;
+                            }
+                        }
+                        
+                        // Remove the object
+                        obj.element.parentNode.removeChild(obj.element);
+                        game.objects.splice(i, 1);
+                    }
+                    
+                    // Remove objects that fall out of screen
+                    else if (obj.y > gameContainer.clientHeight) {
+                        if (obj.type === 'banana') {
+                            // Missed a banana
+                            game.lives--;
+                            gameLivesDisplay.textContent = `Lives: ${game.lives}`;
+                            if (game.lives <= 0) {
+                                endGame();
+                                return;
+                            }
+                        }
+                        
+                        obj.element.parentNode.removeChild(obj.element);
+                        game.objects.splice(i, 1);
+                    }
+                }
+            }
+
+            function handleKeyboardControls(e) {
+                if (!game.isPlaying) return;
+                
+                if (e.type === 'keydown') {
+                    if (e.key === 'ArrowLeft') game.keyLeft = true;
+                    if (e.key === 'ArrowRight') game.keyRight = true;
+                } else if (e.type === 'keyup') {
+                    if (e.key === 'ArrowLeft') game.keyLeft = false;
+                    if (e.key === 'ArrowRight') game.keyRight = false;
+                }
+            }
+
+            // Meme Generator
+            function updateMemePreview() {
+                memePreviewTopText.textContent = memeTopText.value.toUpperCase();
+                memePreviewBottomText.textContent = memeBottomText.value.toUpperCase();
+                
+                // Get emoji from selected template option
+                const selectedOption = memeTemplate.options[memeTemplate.selectedIndex];
+                let emoji = '🦍'; // Default emoji
+                
+                if (selectedOption && selectedOption.hasAttribute('data-emoji')) {
+                    emoji = selectedOption.getAttribute('data-emoji');
+                }
+                
+                memePreviewImg.innerHTML = emoji;
+                
+                if (isSoundOn) sounds.hover.play();
+            }
+
+            function generateMeme() {
+                updateMemePreview();
+                
+                // Save meme to database using API
+                const templateId = memeTemplate.value;
+                const topText = memeTopText.value;
+                const bottomText = memeBottomText.value;
+                
+                // Call the API to save the meme
+                fetch('/api/memes/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        template_id: templateId,
+                        top_text: topText,
+                        bottom_text: bottomText
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (isSoundOn) sounds.success.play();
+                        // Show success animation
+                        gsap.to(memePreviewImg, {
+                            scale: 1.1,
+                            duration: 0.2,
+                            yoyo: true,
+                            repeat: 1
+                        });
+                        
+                        // Record easter egg for using the meme generator
+                        recordEasterEgg('meme_generator_used');
+                    } else {
+                        if (isSoundOn) sounds.error.play();
+                        console.error('Error creating meme:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating meme:', error);
+                    if (isSoundOn) sounds.error.play();
+                });
+            }
+            
+            // Function to record easter eggs
+            function recordEasterEgg(eggName) {
+                fetch(`/api/easter-egg/${eggName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(`Easter egg "${eggName}" found ${data.found_count} times!`);
+                })
+                .catch(error => {
+                    console.error('Error recording easter egg:', error);
+                });
+            }
+
+            // Sound Board
+            function playSound(soundId) {
+                if (!isSoundOn) return;
+                
+                if (sounds[soundId]) {
+                    sounds[soundId].play();
+                }
+            }
+
+            // Newsletter Form
+            function handleNewsletterSubmit(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                
+                if (emailInput.value) {
+                    // In a real implementation, this would subscribe the user
+                    // For now, just show a success message
+                    if (isSoundOn) sounds.success.play();
+                    emailInput.value = '';
+                    alert('Thanks for subscribing to our chaos! Check your email for a special banana.');
+                }
+            }
+
+            // Event Listeners
+            if (burger) burger.addEventListener('click', toggleNav);
+            if (soundToggle) soundToggle.addEventListener('click', toggleSound);
+            window.addEventListener('scroll', showBackToTop);
+            window.addEventListener('scroll', showSecretBanana);
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keydown', handleKeyboardControls);
+            document.addEventListener('keyup', handleKeyboardControls);
+            document.addEventListener('mousemove', updateBananaCursor);
+            document.addEventListener('mouseenter', showBananaCursor);
+            document.addEventListener('mouseleave', hideBananaCursor);
+            
+            if (closeKonami) closeKonami.addEventListener('click', deactivateKonamiCode);
+            if (secretBanana) secretBanana.addEventListener('click', () => {
+                if (isSoundOn) sounds.banana.play();
+                alert('You found the secret banana! You are now 10% more awesome.');
+            });
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                if (question) question.addEventListener('click', toggleFaq);
+            });
+            
+            if (gameStartBtn) gameStartBtn.addEventListener('click', startGame);
+            if (restartGameBtn) restartGameBtn.addEventListener('click', startGame);
+            
+            if (memeTopText) memeTopText.addEventListener('input', updateMemePreview);
+            if (memeBottomText) memeBottomText.addEventListener('input', updateMemePreview);
+            if (memeTemplate) memeTemplate.addEventListener('change', updateMemePreview);
+            if (generateMemeBtn) generateMemeBtn.addEventListener('click', generateMeme);
+            
+            soundButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const soundId = button.getAttribute('data-sound');
+                    playSound(soundId);
+                });
+            });
+            
+            if (newsletterForm) newsletterForm.addEventListener('submit', handleNewsletterSubmit);
+            
+            // Initialize elements
+            generateFloatingBananas();
+            initTypedJs();
+            showBackToTop();
+
+            // Add hover sound effects
+            document.querySelectorAll('a, button').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    if (isSoundOn) sounds.hover.play();
+                });
+                element.addEventListener('click', () => {
+                    if (isSoundOn && element.className !== 'sound-button') sounds.click.play();
+                });
+            });
+
+            // Initialize Three.js Banana (this would be implemented if Three.js is available)
+            if (typeof THREE !== 'undefined') {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                document.body.appendChild(renderer.domElement);
+                
+                // This would create a 3D banana that floats around the page
+                // Simplified implementation for example purposes
+            }
+
+            // Initialize GSAP animations
+            if (typeof gsap !== 'undefined') {
+                gsap.from('.hero h1', { duration: 1, y: -100, opacity: 0, ease: 'bounce' });
+                gsap.from('.hero-img', { duration: 1, scale: 0, opacity: 0, delay: 0.5, ease: 'back' });
+                gsap.from('.subscribe-btn', { duration: 1, y: 50, opacity: 0, delay: 1, ease: 'power2' });
+                
+                // More animations would be added here for other elements
+            }
+        });
+
+        // ========== Custom Functions for 3D Effects and More Chaos ==========
+
+        // This function would create a 3D glitch effect using Three.js
+        function create3DGlitchEffect() {
+            // Simplified placeholder for what would be complex 3D rendering code
+            console.log("3D glitch effect activated");
+        }
+
+        // This function would create a matrix-style raining bananas effect
+        function rainBananas() {
+            // Would create a canvas with animated falling bananas in matrix style
+            console.log("Banana rain initiated");
+        }
+
+        // This function would generate random gorilla sounds at random intervals
+        function randomGorillaNoises() {
+            // Would play random gorilla sounds
+            console.log("Random gorilla noises enabled");
+        }
+
+        // This function would create a 3D banana using Three.js
+        function create3DBanana() {
+            // Would create an interactive 3D banana
+            console.log("3D banana created");
+        }
+
+        // This function would create a VHS-style filter over the entire site
+        function enhanceVHSEffect() {
+            // Would strengthen the VHS effect based on scroll position
+            console.log("VHS effect enhanced");
+        }
+
+        // This function would create an explosion of bananas when clicking certain elements
+        function bananaExplosion(x, y) {
+            // Would create an explosion of banana emojis from a point
+            console.log("Banana explosion triggered at", x, y);
+        }
+
+        // This function would convert all images to glitched versions on hover
+        function glitchImagesOnHover() {
+            // Would apply a glitch effect to images when hovered
+            console.log("Image glitch effect enabled");
+        }
+
+        // This function would create a scrolling noise effect as you navigate the page
+        function createScrollNoise() {
+            // Would create a static noise effect based on scroll speed
+            console.log("Scroll noise effect enabled");
+        }
+
+        // This function would make elements on the page randomly wiggle
+        function randomElementWiggle() {
+            // Would make random elements on the page wiggle slightly
+            console.log("Random wiggle effect enabled");
+        }
+
+        // This function would create a hidden maze game navigable with konami code
+        function hiddenMazeGame() {
+            // Would create a hidden maze game with the gorilla character
+            console.log("Hidden maze game unlocked");
+        }
+
+        // Easter Egg: if you click in a specific pattern, the page goes into disco mode
+        function discoMode() {
+            // Would make the page flash with disco colors
+            console.log("Disco mode activated");
+        }
+
+        // This function would create a fake hacking terminal when certain keys are pressed
+        function fakeHackingTerminal() {
+            // Would create a fake hacking terminal overlay
+            console.log("Fake hacking terminal initiated");
+        }
+
+        // This function would make gorilla sounds when hovering over team members
+        function teamMemberGorillaSound() {
+            // Would play specific gorilla sounds for each team member
+            console.log("Team member gorilla sounds enabled");
+        }
+
+        // This function would create a retro scan effect like an old TV
+        function createRetroScanlines() {
+            // Would create animated scanlines over the page
+            console.log("Retro scanlines enabled");
+        }
+
+        // This function would randomize the navigation links on each visit
+        function randomizeNavLinks() {
+            // Would shuffle the order of navigation links
+            console.log("Navigation links randomized");
+        }
+
+        // This function would create a banana trail following the cursor
+        function bananaCursorTrail() {
+            // Would create a trail of tiny bananas following the cursor
+            console.log("Banana cursor trail enabled");
+        }
+
+        // This function would make the page elements run away from the cursor
+        function elementsCursorFear() {
+            // Would make elements move slightly away from the cursor
+            console.log("Elements now fear the cursor");
+        }
+
+        // This function would create a hidden DDR-style game with arrow keys
+        function hiddenDDRGame() {
+            // Would create a hidden DDR game with gorilla dancing
+            console.log("DDR gorilla game enabled");
+        }
+
+        // This function would make random gorilla shapes appear in the background
+        function randomGorillaShapes() {
+            // Would create subtle gorilla shapes in the background
+            console.log("Random gorilla shapes appearing");
+        }
+    </script>
+</body>
+</html>
