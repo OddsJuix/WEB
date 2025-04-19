@@ -1948,10 +1948,17 @@
                 <p class="role">Monetization Guru</p>
                 <p>Desperately trying to teach us how to make money without becoming a meme. So far, unsuccessful. Keeps muttering "SEO" in his sleep and crying about CPM rates.</p>
             </div>
+            <div class="team-member">
+                <div class="img-container">
+                    <img alt="Myles">
+                </div>
+                <h3>Myles</h3>
+                <p class="role">Him (Editor)</p>
+                <p>he fixes moxxie’s mistakes before they become public crimes. nobody knows how he does it. we’re too scared to ask.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Videos Section -->
     <section class="videos" id="videos">
         <h2>GORILLA MAYHEM</h2>
         <div class="videos-container">
@@ -1960,7 +1967,7 @@
     </section>
 
     <section class="game-section" id="game">
-        <h2>BANANA CATCHER</h2>
+        <h2>BANANA CATCHER (fixing)</h2>
         <p>Help Moxxie catch falling bananas while avoiding the bombs! Use left and right arrow keys to move.</p>
         <div class="game-container">
             <div class="game-score">Score: 0</div>
@@ -1983,7 +1990,7 @@
                 <input type="text" id="top-text" placeholder="Top Text">
                 <input type="text" id="bottom-text" placeholder="Bottom Text">
                 <select id="meme-template">
-                    <option value="gorilla1">Angry Gorilla</option>
+                    <option value="gorilla1">Angy Gorilla</option>
                     <option value="gorilla2">Surprised Gorilla</option>
                     <option value="gorilla3">Dancing Gorilla</option>
                     <option value="gorilla4">Banana Gorilla</option>
@@ -1992,14 +1999,13 @@
                 <button id="generate-meme">CREATE MEME (WILL NOT WORK)</button>
             </div>
             <div class="meme-preview">
-                <div class="meme-text meme-text-top">TOP TEXT</div>
-                <div class="meme-text meme-text-bottom">BOTTOM TEXT</div>
+                <div class="meme-text meme-text-top">Broken</div>
+                <div class="meme-text meme-text-bottom">Text</div>
                 <div class="meme-preview-img" style="background-color: #241734; display: flex; justify-content: center; align-items: center; font-size: 8rem;">🦍</div>
             </div>
         </div>
     </section>
 
-    <!-- Sound Board -->
     <section class="sound-board" id="sounds">
         <h2>GORILLA SOUNDBOARD</h2>
         <p>Click the buttons to play authentic gorilla tag sounds! Warning: May cause uncontrollable laughter and/or mild confusion.</p>
@@ -2013,31 +2019,27 @@
         </div>
     </section>
 
-    <!-- Social Media -->
     <section class="social-media" id="social">
         <h2>FOLLOW THE MADNESS</h2>
         <div class="social-icons">
             <a href="https://www.youtube.com/@MoxxieVR_" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+            <a href="#" target="https://x.com/oddsjuix"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="https://www.tiktok.com/@m0xx13vr?_t=ZT-8vckjHQdsNy&_r=1"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="https://discord.gg/r4vW7xXr"><i class="fab fa-discord"></i></a>
         </div>
     </section>
 
-    <!-- Newsletter -->
     <section class="newsletter" id="newsletter">
         <h2>JOIN THE MONKEY BUSINESS</h2>
-        <p>Subscribe to our newsletter for exclusive content, behind-the-scenes chaos, and possibly some actual useful information (no promises on that last one).</p>
+        <p>THIS WILL NOT WORK FOR ANOTHER 4-7 BUSINESS DAYS!!</p>
         <form class="newsletter-form">
             <input type="email" placeholder="Your email address" required>
             <button type="submit">SUBSCRIBE</button>
         </form>
     </section>
 
-    <!-- FAQ Section -->
     <section class="faq" id="faq">
-        <h2>FREQUENTLY ASKED QUESTIONS</h2>
+        <h2>FREQUENTLY ASKED QUESTIONS (WIP)</h2>
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">
@@ -2087,7 +2089,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>made with love by coconutz</p>
         <p>2025, coconutz, all rights confused, all lefts reserved</p>
@@ -2097,7 +2098,6 @@
     <div class="secret-banana" id="secret-banana">🍌</div>
     <a href="#home" class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
-    <!-- Konami Code Easter Egg -->
     <div class="konami-code" id="konami-code">
         <h2>BANANA MODE ACTIVATED!</h2>
         <p>You've discovered the secret banana mode! Now everything is bananas!</p>
@@ -2105,9 +2105,7 @@
     </div>
 
     <script>
-        // Document Ready Function
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch Videos from the database
             fetch('/api/videos')
                 .then(response => response.json())
                 .then(videos => {
@@ -2124,7 +2122,6 @@
                             videosContainer.appendChild(videoDiv);
                         });
                     } else {
-                        // Fallback if no videos in database
                         const fallbackVideo = document.createElement('div');
                         fallbackVideo.className = 'video';
                         fallbackVideo.innerHTML = `
@@ -2136,7 +2133,6 @@
                 })
                 .catch(error => {
                     console.error('Error fetching videos:', error);
-                    // Fallback for error
                     const videosContainer = document.getElementById('videos-container');
                     const fallbackVideo = document.createElement('div');
                     fallbackVideo.className = 'video';
@@ -2147,14 +2143,12 @@
                     videosContainer.appendChild(fallbackVideo);
                 });
                 
-            // Fetch Meme Templates from the database
             fetch('/api/memes/templates')
                 .then(response => response.json())
                 .then(templates => {
                     const templateSelect = document.getElementById('meme-template');
                     
                     if (templates && templates.length > 0) {
-                        // Clear existing options
                         templateSelect.innerHTML = '';
                         
                         templates.forEach(template => {
@@ -2165,7 +2159,6 @@
                             templateSelect.appendChild(option);
                         });
                         
-                        // Trigger change to update the preview
                         const changeEvent = new Event('change');
                         templateSelect.dispatchEvent(changeEvent);
                     }
@@ -2173,7 +2166,6 @@
                 .catch(error => {
                     console.error('Error fetching meme templates:', error);
                 });
-            // Initialize Particle.js for background effects
             if (typeof particlesJS !== 'undefined') {
                 particlesJS('particles-js', {
                     particles: {
@@ -2211,7 +2203,6 @@
                 });
             }
 
-            // Variables and DOM Elements
             const navLinks = document.querySelector('.nav-links');
             const burger = document.querySelector('.burger');
             const backToTop = document.getElementById('back-to-top');
@@ -2241,7 +2232,6 @@
             const typedTextElement = document.getElementById('dynamic-text');
             const floatingBananas = document.querySelector('.floating-bananas');
 
-            // Sound Effects
             const sounds = {
                 click: new Howl({
                     src: ['https://assets.codepen.io/21542/clickDown.wav'],
@@ -2289,7 +2279,6 @@
                 })
             };
 
-            // State Variables
             let isSoundOn = true;
             let game = {
                 isPlaying: false,
@@ -2308,7 +2297,6 @@
             let konamiSequence = [];
             const konamiPattern = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // up, up, down, down, left, right, left, right, b, a
 
-            // Generate Floating Bananas
             function generateFloatingBananas() {
                 for (let i = 0; i < 20; i++) {
                     const banana = document.createElement('div');
@@ -2321,7 +2309,6 @@
                 }
             }
 
-            // Initialize Typed.js
             function initTypedJs() {
                 if (typeof Typed !== 'undefined' && typedTextElement) {
                     new Typed(typedTextElement, {
@@ -2343,7 +2330,6 @@
                 }
             }
 
-            // Navigation and UI Functions
             function toggleNav() {
                 navLinks.classList.toggle('active');
                 burger.classList.toggle('active');
@@ -2366,7 +2352,7 @@
             }
 
             function showSecretBanana() {
-                const randomAppear = Math.random() < 0.1; // 10% chance
+                const randomAppear = Math.random() < 0.1; 
                 if (randomAppear && !secretBanana.classList.contains('show')) {
                     secretBanana.classList.add('show');
                     setTimeout(() => {
@@ -2380,7 +2366,6 @@
                 if (isSoundOn) sounds.click.play();
             }
 
-            // Banana Cursor
             function updateBananaCursor(e) {
                 bananaCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) rotate(-25deg)`;
             }
@@ -2393,7 +2378,6 @@
                 bananaCursor.style.display = 'none';
             }
 
-            // Konami Code
             function handleKeyDown(e) {
                 konamiSequence.push(e.keyCode);
                 if (konamiSequence.length > konamiPattern.length) {
@@ -2420,11 +2404,9 @@
                 if (isSoundOn) sounds.click.play();
             }
 
-            // Game Functions
             function startGame() {
                 if (game.isPlaying) return;
                 
-                // Reset game state
                 game.isPlaying = true;
                 game.score = 0;
                 game.lives = 3;
@@ -2434,7 +2416,6 @@
                 gameStartBtn.style.display = 'none';
                 gameOverScreen.classList.remove('active');
                 
-                // Start game timers
                 game.timers.spawn = setInterval(spawnGameObject, 1000);
                 game.timers.gameLoop = setInterval(gameLoop, 16);
                 
@@ -2446,7 +2427,6 @@
                 clearInterval(game.timers.spawn);
                 clearInterval(game.timers.gameLoop);
                 
-                // Clean up objects
                 game.objects.forEach(obj => {
                     if (obj.element && obj.element.parentNode) {
                         obj.element.parentNode.removeChild(obj.element);
@@ -2454,7 +2434,6 @@
                 });
                 game.objects = [];
                 
-                // Show game over screen
                 finalScoreDisplay.textContent = game.score;
                 gameOverScreen.classList.add('active');
                 
@@ -2462,7 +2441,7 @@
             }
 
             function spawnGameObject() {
-                const isBanana = Math.random() > 0.3; // 70% chance for banana, 30% for bomb
+                const isBanana = Math.random() > 0.3; 
                 const xPos = Math.random() * (gameContainer.clientWidth - 50);
                 
                 const object = document.createElement('div');
@@ -2483,7 +2462,6 @@
             }
 
             function gameLoop() {
-                // Move character based on keyboard input
                 if (game.keyLeft && game.character.position > 40) {
                     game.character.position -= game.character.speed;
                 }
@@ -2493,19 +2471,16 @@
                 
                 gameCharacter.style.left = `${game.character.position}px`;
                 
-                // Update objects position and check collisions
                 for (let i = game.objects.length - 1; i >= 0; i--) {
                     const obj = game.objects[i];
                     obj.y += obj.speed;
                     obj.element.style.top = `${obj.y}px`;
                     
-                    // Check collision with character
                     if (
                         obj.y + obj.height > gameContainer.clientHeight - 60 &&
                         obj.y < gameContainer.clientHeight - 20 &&
                         Math.abs(obj.x - game.character.position) < 50
                     ) {
-                        // Collision detected
                         if (obj.type === 'banana') {
                             game.score += 10;
                             gameScoreDisplay.textContent = `Score: ${game.score}`;
@@ -2520,15 +2495,12 @@
                             }
                         }
                         
-                        // Remove the object
                         obj.element.parentNode.removeChild(obj.element);
                         game.objects.splice(i, 1);
                     }
                     
-                    // Remove objects that fall out of screen
                     else if (obj.y > gameContainer.clientHeight) {
                         if (obj.type === 'banana') {
-                            // Missed a banana
                             game.lives--;
                             gameLivesDisplay.textContent = `Lives: ${game.lives}`;
                             if (game.lives <= 0) {
@@ -2555,14 +2527,12 @@
                 }
             }
 
-            // Meme Generator
             function updateMemePreview() {
                 memePreviewTopText.textContent = memeTopText.value.toUpperCase();
                 memePreviewBottomText.textContent = memeBottomText.value.toUpperCase();
-                
-                // Get emoji from selected template option
+
                 const selectedOption = memeTemplate.options[memeTemplate.selectedIndex];
-                let emoji = '🦍'; // Default emoji
+                let emoji = '🦍'; 
                 
                 if (selectedOption && selectedOption.hasAttribute('data-emoji')) {
                     emoji = selectedOption.getAttribute('data-emoji');
@@ -2575,13 +2545,11 @@
 
             function generateMeme() {
                 updateMemePreview();
-                
-                // Save meme to database using API
+      
                 const templateId = memeTemplate.value;
                 const topText = memeTopText.value;
                 const bottomText = memeBottomText.value;
-                
-                // Call the API to save the meme
+             
                 fetch('/api/memes/create', {
                     method: 'POST',
                     headers: {
@@ -2597,15 +2565,12 @@
                 .then(data => {
                     if (data.success) {
                         if (isSoundOn) sounds.success.play();
-                        // Show success animation
                         gsap.to(memePreviewImg, {
                             scale: 1.1,
                             duration: 0.2,
                             yoyo: true,
                             repeat: 1
                         });
-                        
-                        // Record easter egg for using the meme generator
                         recordEasterEgg('meme_generator_used');
                     } else {
                         if (isSoundOn) sounds.error.play();
@@ -2617,8 +2582,7 @@
                     if (isSoundOn) sounds.error.play();
                 });
             }
-            
-            // Function to record easter eggs
+          
             function recordEasterEgg(eggName) {
                 fetch(`/api/easter-egg/${eggName}`, {
                     method: 'POST',
@@ -2635,7 +2599,6 @@
                 });
             }
 
-            // Sound Board
             function playSound(soundId) {
                 if (!isSoundOn) return;
                 
@@ -2644,21 +2607,17 @@
                 }
             }
 
-            // Newsletter Form
             function handleNewsletterSubmit(e) {
                 e.preventDefault();
                 const emailInput = this.querySelector('input[type="email"]');
                 
                 if (emailInput.value) {
-                    // In a real implementation, this would subscribe the user
-                    // For now, just show a success message
                     if (isSoundOn) sounds.success.play();
                     emailInput.value = '';
                     alert('Thanks for subscribing to our chaos! Check your email for a special banana.');
                 }
             }
 
-            // Event Listeners
             if (burger) burger.addEventListener('click', toggleNav);
             if (soundToggle) soundToggle.addEventListener('click', toggleSound);
             window.addEventListener('scroll', showBackToTop);
@@ -2673,7 +2632,7 @@
             if (closeKonami) closeKonami.addEventListener('click', deactivateKonamiCode);
             if (secretBanana) secretBanana.addEventListener('click', () => {
                 if (isSoundOn) sounds.banana.play();
-                alert('You found the secret banana! You are now 10% more awesome.');
+                alert('You found the secret banana! You are now 102% more brainless.');
             });
             
             faqItems.forEach(item => {
@@ -2698,12 +2657,10 @@
             
             if (newsletterForm) newsletterForm.addEventListener('submit', handleNewsletterSubmit);
             
-            // Initialize elements
             generateFloatingBananas();
             initTypedJs();
             showBackToTop();
 
-            // Add hover sound effects
             document.querySelectorAll('a, button').forEach(element => {
                 element.addEventListener('mouseenter', () => {
                     if (isSoundOn) sounds.hover.play();
@@ -2713,7 +2670,6 @@
                 });
             });
 
-            // Initialize Three.js Banana (this would be implemented if Three.js is available)
             if (typeof THREE !== 'undefined') {
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -2721,133 +2677,89 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 document.body.appendChild(renderer.domElement);
                 
-                // This would create a 3D banana that floats around the page
-                // Simplified implementation for example purposes
             }
 
-            // Initialize GSAP animations
             if (typeof gsap !== 'undefined') {
                 gsap.from('.hero h1', { duration: 1, y: -100, opacity: 0, ease: 'bounce' });
                 gsap.from('.hero-img', { duration: 1, scale: 0, opacity: 0, delay: 0.5, ease: 'back' });
                 gsap.from('.subscribe-btn', { duration: 1, y: 50, opacity: 0, delay: 1, ease: 'power2' });
                 
-                // More animations would be added here for other elements
             }
         });
 
-        // ========== Custom Functions for 3D Effects and More Chaos ==========
 
-        // This function would create a 3D glitch effect using Three.js
         function create3DGlitchEffect() {
-            // Simplified placeholder for what would be complex 3D rendering code
             console.log("3D glitch effect activated");
         }
 
-        // This function would create a matrix-style raining bananas effect
         function rainBananas() {
-            // Would create a canvas with animated falling bananas in matrix style
             console.log("Banana rain initiated");
         }
 
-        // This function would generate random gorilla sounds at random intervals
         function randomGorillaNoises() {
-            // Would play random gorilla sounds
             console.log("Random gorilla noises enabled");
         }
 
-        // This function would create a 3D banana using Three.js
         function create3DBanana() {
-            // Would create an interactive 3D banana
             console.log("3D banana created");
         }
 
-        // This function would create a VHS-style filter over the entire site
         function enhanceVHSEffect() {
-            // Would strengthen the VHS effect based on scroll position
             console.log("VHS effect enhanced");
         }
 
-        // This function would create an explosion of bananas when clicking certain elements
         function bananaExplosion(x, y) {
-            // Would create an explosion of banana emojis from a point
             console.log("Banana explosion triggered at", x, y);
         }
 
-        // This function would convert all images to glitched versions on hover
         function glitchImagesOnHover() {
-            // Would apply a glitch effect to images when hovered
             console.log("Image glitch effect enabled");
         }
-
-        // This function would create a scrolling noise effect as you navigate the page
         function createScrollNoise() {
-            // Would create a static noise effect based on scroll speed
             console.log("Scroll noise effect enabled");
         }
 
-        // This function would make elements on the page randomly wiggle
         function randomElementWiggle() {
-            // Would make random elements on the page wiggle slightly
             console.log("Random wiggle effect enabled");
         }
 
-        // This function would create a hidden maze game navigable with konami code
         function hiddenMazeGame() {
-            // Would create a hidden maze game with the gorilla character
             console.log("Hidden maze game unlocked");
         }
 
-        // Easter Egg: if you click in a specific pattern, the page goes into disco mode
         function discoMode() {
-            // Would make the page flash with disco colors
             console.log("Disco mode activated");
         }
 
-        // This function would create a fake hacking terminal when certain keys are pressed
         function fakeHackingTerminal() {
-            // Would create a fake hacking terminal overlay
             console.log("Fake hacking terminal initiated");
         }
 
-        // This function would make gorilla sounds when hovering over team members
         function teamMemberGorillaSound() {
-            // Would play specific gorilla sounds for each team member
             console.log("Team member gorilla sounds enabled");
         }
 
-        // This function would create a retro scan effect like an old TV
         function createRetroScanlines() {
-            // Would create animated scanlines over the page
             console.log("Retro scanlines enabled");
         }
 
-        // This function would randomize the navigation links on each visit
         function randomizeNavLinks() {
-            // Would shuffle the order of navigation links
             console.log("Navigation links randomized");
         }
 
-        // This function would create a banana trail following the cursor
         function bananaCursorTrail() {
-            // Would create a trail of tiny bananas following the cursor
             console.log("Banana cursor trail enabled");
         }
 
-        // This function would make the page elements run away from the cursor
         function elementsCursorFear() {
-            // Would make elements move slightly away from the cursor
             console.log("Elements now fear the cursor");
         }
 
-        // This function would create a hidden DDR-style game with arrow keys
         function hiddenDDRGame() {
-            // Would create a hidden DDR game with gorilla dancing
             console.log("DDR gorilla game enabled");
         }
 
-        // This function would make random gorilla shapes appear in the background
         function randomGorillaShapes() {
-            // Would create subtle gorilla shapes in the background
             console.log("Random gorilla shapes appearing");
         }
     </script>
