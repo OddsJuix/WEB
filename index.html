@@ -4,24 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoxxieVR - Gorilla Tag Mayhem</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Three.js for 3D banana animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- GSAP for advanced animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <!-- Particle.js for background effects -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <!-- Typed.js for text animations -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <!-- Howler.js for sound effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <style>
-        /* ========== CSS Reset and Base Styles ========== */
         * {
             margin: 0;
             padding: 0;
@@ -70,7 +62,6 @@
             z-index: -1;
         }
 
-        /* ========== Video TV Static Effect ========== */
         .tv-static {
             position: fixed;
             top: 0;
@@ -108,7 +99,6 @@
             100% { transform: translate(-10%, -10%); }
         }
 
-        /* ========== VHS Effect ========== */
         .vhs-effect {
             position: fixed;
             top: 0;
@@ -156,7 +146,6 @@
             100% { opacity: 0.3; }
         }
 
-        /* ========== Glitch Effects ========== */
         .glitch-container {
             position: relative;
             display: inline-block;
@@ -402,7 +391,6 @@
             }
         }
 
-        /* ========== CRT Effects ========== */
         .crt-effect {
             pointer-events: none;
             position: fixed;
@@ -467,7 +455,6 @@
             }
         }
 
-        /* ========== Scrollbar Styling ========== */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -485,7 +472,6 @@
             background: #ff79c6;
         }
 
-        /* ========== Banana Cursor ========== */
         .banana-cursor {
             position: fixed;
             pointer-events: none;
@@ -498,7 +484,6 @@
             filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
         }
 
-        /* ========== Navigation ========== */
         nav {
             position: fixed;
             width: 100%;
@@ -582,7 +567,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ========== Hero Section ========== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -661,7 +645,6 @@
             }
         }
 
-        /* ========== Floating Bananas ========== */
         .floating-bananas {
             position: absolute;
             width: 100%;
@@ -688,7 +671,6 @@
             }
         }
 
-        /* ========== Subscribe Button ========== */
         .subscribe-btn {
             padding: 1rem 2rem;
             font-size: 1.5rem;
@@ -733,7 +715,6 @@
             transform: scale(0.95);
         }
 
-        /* ========== Team Section ========== */
         .team {
             padding: 6rem 2rem 4rem;
             position: relative;
@@ -864,7 +845,6 @@
             font-size: 1.1rem;
         }
 
-        /* ========== Videos Section ========== */
         .videos {
             padding: 6rem 2rem 4rem;
             background: linear-gradient(to bottom, #1a1a2e, var(--bg-dark));
@@ -928,7 +908,6 @@
             border: none;
         }
 
-        /* ========== Game Section ========== */
         .game-section {
             padding: 6rem 2rem 4rem;
             background: linear-gradient(to bottom, var(--bg-dark), var(--bg-purple));
@@ -1108,7 +1087,6 @@
             }
         }
 
-        /* ========== Meme Generator ========== */
         .meme-generator {
             padding: 6rem 2rem 4rem;
             background: linear-gradient(to bottom, var(--bg-purple), var(--bg-dark));
@@ -1228,7 +1206,6 @@
             bottom: 0;
         }
 
-        /* ========== Sound Board ========== */
         .sound-board {
             padding: 6rem 2rem 4rem;
             background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
@@ -1316,7 +1293,6 @@
             transform: translateY(0) scale(0.95) rotate(0deg);
         }
 
-        /* ========== Social Media ========== */
         .social-media {
             text-align: center;
             padding: 4rem 2rem;
@@ -1382,7 +1358,6 @@
             box-shadow: 0 7px 20px rgba(255, 73, 219, 0.6);
         }
 
-        /* ========== Newsletter ========== */
         .newsletter {
             padding: 4rem 2rem;
             background: linear-gradient(to bottom, var(--bg-purple), var(--bg-dark));
@@ -1454,7 +1429,6 @@
             transform: scale(0.95);
         }
 
-        /* ========== FAQ Section ========== */
         .faq {
             padding: 6rem 2rem 4rem;
             background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
@@ -1554,7 +1528,6 @@
             line-height: 1.6;
         }
 
-        /* ========== Secret Bananas ========== */
         .secret-banana {
             position: fixed;
             bottom: -100px;
@@ -1589,7 +1562,6 @@
             }
         }
 
-        /* ========== Back to Top Button ========== */
         .back-to-top {
             position: fixed;
             bottom: 2rem;
@@ -1622,7 +1594,6 @@
             box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* ========== Footer ========== */
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -1646,7 +1617,6 @@
             transform: rotate(-1deg);
         }
 
-        /* ========== Special Easter Eggs ========== */
         .konami-code {
             position: fixed;
             inset: 0;
@@ -1712,7 +1682,6 @@
             }
         }
 
-        /* ========== Media Queries ========== */
         @media screen and (max-width: 1024px) {
             .hero h1 {
                 font-size: 4rem;
@@ -1863,19 +1832,14 @@
     </style>
 </head>
 <body id="home">
-    <!-- TV Static Effect -->
     <div class="tv-static"></div>
     
-    <!-- VHS Effect -->
     <div class="vhs-effect"></div>
     
-    <!-- CRT Effect -->
     <div class="crt-effect"></div>
 
-    <!-- Banana Cursor -->
     <div class="banana-cursor">🍌</div>
 
-    <!-- Navigation -->
     <nav>
         <a href="#home" class="logo">MoxxieVR</a>
         <div class="nav-links">
@@ -1896,10 +1860,8 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="floating-bananas">
-            <!-- Bananas will be added dynamically with JavaScript -->
         </div>
         <div class="hero-img"></div>
         <div class="glitch-container">
@@ -1912,7 +1874,6 @@
         <p id="dynamic-text"></p>
     </section>
 
-    <!-- Team Section -->
     <section class="team" id="team">
         <h2>THE (BARELY) FUNCTIONAL TEAM</h2>
         <div class="team-container">
@@ -1954,7 +1915,7 @@
                 </div>
                 <h3>Myles</h3>
                 <p class="role">Him (Editor)</p>
-                <p>he fixes moxxie’s mistakes before they become public crimes. nobody knows how he does it. we’re too scared to ask.</p>
+                <p>somehow edits entire videos on a toaster with wifi. leads like a villain in a disney channel original. capcut fears him. we do too.</p>
             </div>
         </div>
     </section>
