@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>moxxie intro x999</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: monospace;
+    }
+    #typed, #glitch {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: #00ffcc;
+      z-index: 10;
+    }
+    #glitch {
+      color: #ff00aa;
+      opacity: 0.3;
+      pointer-events: none;
+      transform: translate(2px, 2px);
+      animation: flicker 0.2s infinite;
+    }
+    @keyframes flicker {
+      0% { opacity: 0.1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 0.1; }
+    }
+    #loading-bar {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 10px;
+      background: #111;
+      border: 2px solid #00ffcc;
+      overflow: hidden;
+    }
+    #bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00ffcc, #ff00aa);
+      animation: fill 5s infinite linear;
+    }
+    @keyframes fill {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    #cube {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="glitch">launching moxxie.exe</div>
+  <div id="typed"></div>
+  <div id="loading-bar"><div id="bar-fill"></div></div>
+  <canvas id="bg-canvas"></canvas>
+  <div id="cube"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+
+  <script>
+    new Typed("#typed", {
+      strings: [
+        "loading...",
+        "initiating monkey chaos...",
+        "moxxie systems unstable.",
+        "stand by for absolute nonsense."
+      ],
+      typeSpeed: 45,
+      backSpeed: 25,
+      loop: true
+    })
+
+    particlesJS("bg-canvas", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 3 },
+        color: { value: "#00ffcc" },
+        line_linked: { enable: true, color: "#ff00aa" },
+        move: { speed: 6, random: true }
+      }
+    })
+
+    const sound = new Howl({
+      src: ["https://freesound.org/data/previews/265/265084_5002960-lq.mp3"],
+      volume: 0.4
+    })
+    window.onload = () => sound.play()
+
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
+    const renderer = new THREE.WebGLRenderer()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    document.getElementById("cube").appendChild(renderer.domElement)
+
+    const geometry = new THREE.BoxGeometry()
+    const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true })
+    const cube = new THREE.Mesh(geometry, material)
+    scene.add(cube)
+    camera.position.z = 5
+
+    function animate() {
+      requestAnimationFrame(animate)
+      cube.rotation.x += 0.01
+      cube.rotation.y += 0.01
+      const scale = 1 + Math.sin(Date.now() * 0.005) * 0.1
+      cube.scale.set(scale, scale, scale)
+      renderer.render(scene, camera)
+    }
+    animate()
+  </script>
+</body>
+</html>
