@@ -1959,29 +1959,91 @@
         </div>
     </section>
     
-    <section class="meme-generator" id="meme">
-        <h2>GORILLA MEME FACTORY</h2>
-        <p>This is a WIP, this will not be working unti June 18th.</p>
-        <div class="meme-container">
-            <div class="meme-form">
-                <input type="text" id="top-text" placeholder="Top Text">
-                <input type="text" id="bottom-text" placeholder="Bottom Text">
-                <select id="meme-template">
-                    <option value="gorilla1">Angy Gorilla</option>
-                    <option value="gorilla2">Surprised Gorilla</option>
-                    <option value="gorilla3">Dancing Gorilla</option>
-                    <option value="gorilla4">Banana Gorilla</option>
-                    <option value="gorilla5">Space Gorilla</option>
-                </select>
-                <button id="generate-meme">CREATE MEME (WILL NOT WORK)</button>
-            </div>
-            <div class="meme-preview">
-                <div class="meme-text meme-text-top">Broken</div>
-                <div class="meme-text meme-text-bottom">Text</div>
-                <div class="meme-preview-img" style="background-color: #241734; display: flex; justify-content: center; align-items: center; font-size: 8rem;">🦍</div>
-            </div>
-        </div>
-    </section>
+<section class="meme-generator" id="meme">
+  <h2>GORILLA MEME FACTORY</h2>
+  <div class="meme-container">
+    <div class="meme-form">
+      <input type="text" id="top-text" placeholder="Top Text">
+      <input type="text" id="bottom-text" placeholder="Bottom Text">
+      <select id="meme-template">
+        <option value="gorilla1">Angry Gorilla</option>
+        <option value="gorilla2">Surprised Gorilla</option>
+        <option value="gorilla3">Dancing Gorilla</option>
+        <option value="gorilla4">Banana Gorilla</option>
+        <option value="gorilla5">Space Gorilla</option>
+      </select>
+      <button id="generate-meme">CREATE MEME</button>
+    </div>
+    <div class="meme-preview">
+      <div class="meme-text meme-text-top" id="top-preview">Broken</div>
+      <div class="meme-text meme-text-bottom" id="bottom-preview">Text</div>
+      <div class="meme-preview-img" id="meme-image"
+           style="background-color:#241734;
+                  display:flex;justify-content:center;
+                  align-items:center;font-size:8rem;">
+        🦍
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const topIn = document.getElementById('top-text');
+  const botIn = document.getElementById('bottom-text');
+  const tplSel = document.getElementById('meme-template');
+  const topPv = document.getElementById('top-preview');
+  const botPv = document.getElementById('bottom-preview');
+  const imgDiv = document.getElementById('meme-image');
+  const btn = document.getElementById('generate-meme');
+
+  const templates = {
+    gorilla1: '🦍',
+    gorilla2: '🙉',
+    gorilla3: '🕺🦍',
+    gorilla4: '🍌🦍',
+    gorilla5: '🚀🦍'
+  };
+
+  let currentSrc = ''; 
+
+  function updateMeme() {
+    const top = topIn.value.trim() || 'Broken';
+    const bot = botIn.value.trim() || 'Text';
+    const tpl = tplSel.value;
+    topPv.textContent = top;
+    botPv.textContent = bot;
+    currentSrc = templates[tpl];
+    imgDiv.textContent = currentSrc;
+  }
+
+  topIn.addEventListener('input', updateMeme);
+  botIn.addEventListener('input', updateMeme);
+  tplSel.addEventListener('change', updateMeme);
+
+  btn.addEventListener('click', () => {
+    const canvas = document.createElement('canvas');
+    const w = 500, h = 300;
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 3;
+    ctx.font = '30px Impact';
+    ctx.textAlign = 'center';
+    ctx.fillText(topIn.value.trim() || 'Broken', w/2, 40);
+    ctx.strokeText(topIn.value.trim() || 'Broken', w/2, 40);
+    ctx.fillText(botIn.value.trim() || 'Text', w/2, h - 20);
+    ctx.strokeText(botIn.value.trim() || 'Text', w/2, h - 20);
+    const link = document.createElement('a');
+    link.download = 'gorilla-meme.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  tplSel.value = 'gorilla1';
+  updateMeme();
+</script>
+
 
     <section class="sound-board" id="sounds">
         <h2>GORILLA SOUNDBOARD</h2>
@@ -2015,56 +2077,104 @@
         </form>
     </section>
 
-    <section class="faq" id="faq">
-        <h2>FREQUENTLY ASKED QUESTIONS (WIP)</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Is MoxxieVR actually a gorilla?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>We've conducted extensive scientific research and can confirm that MoxxieVR is approximately 60% gorilla, 30% caffeine, and 14% questionable life decisions. DNA tests were inconclusive as the lab technician got distracted watching his videos.</p>
-                </div>
+<section class="faq" id="faq">
+    <h2>FREQUENTLY ASKED QUESTIONS (WIP)</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is MoxxieVR actually a gorilla?</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How do I join the MoxxieVR team?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>First, question all your life choices that led you to this point. Then, demonstrate your ability to survive chaos by submitting a video of yourself trying to explain Gorilla Tag to your grandparents. Bonus points if you can do it while balancing a banana on your head.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Are you actually selling bananas?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>No, we're not selling bananas. Although Flowzz has suggested it as a "viable revenue stream" at least 17 times in our team meetings. We've had to hide the banana-shaped business plan he keeps trying to present.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Is this website supposed to look this chaotic?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, this is the result of carefully calculated chaos, meticulously designed to capture the essence of MoxxieVR. OddsJuix spent hours making it look like it was made by someone who just discovered HTML while simultaneously having a sugar rush.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Are you starting a cult?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Absolutely not (maybe). We're starting a "passionate community of like-minded individuals who share an enthusiasm for primate-themed virtual reality escapades." Totally different thing. (Polo, please stop ordering the robes. We talked about this.)</p>
-                </div>
+            <div class="faq-answer">
+                <p>We've conducted extensive scientific research and can confirm that MoxxieVR is approximately 60% gorilla, 30% caffeine, and 14% questionable life decisions. DNA tests were inconclusive as the lab technician got distracted watching his videos.</p>
             </div>
         </div>
-    </section>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How do I join the MoxxieVR team?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>First, question all your life choices that led you to this point. Then, demonstrate your ability to survive chaos by submitting a video of yourself trying to explain Gorilla Tag to your grandparents. Bonus points if you can do it while balancing a banana on your head.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Are you actually selling bananas?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>No, we're not selling bananas. Although Flowzz has suggested it as a "viable revenue stream" at least 17 times in our team meetings. We've had to hide the banana-shaped business plan he keeps trying to present.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is this website supposed to look this chaotic?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, this is the result of carefully calculated chaos, meticulously designed to capture the essence of MoxxieVR. OddsJuix spent hours making it look like it was made by someone who just discovered HTML while simultaneously having a sugar rush.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Are you starting a cult?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely not (maybe). We're starting a "passionate community of like-minded individuals who share an enthusiasm for primate-themed virtual reality escapades." Totally different thing. (Polo, please stop ordering the robes. We talked about this.)</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Why is MoxxieVR so obsessed with bananas?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Bananas are the key to unlocking the secrets of the universe. Also, they're delicious and fun to throw at people during heated discussions about virtual reality. MoxxieVR has simply unlocked this ancient wisdom.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What is the meaning of life?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>It's complicated. Some say it's to create, others say it's to play Gorilla Tag. But really, it’s about finding your balance between chaos and caffeine while enjoying virtual reality.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How can I contact MoxxieVR?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Simply send a message through our support email, or you can try sending a carrier pigeon with a note that says “Bananas.” We’ll respond as soon as possible. (P.S. Don't send real bananas.)</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Will there be more chaotic updates?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely! We’re constantly adding new chaotic features to keep everyone on their toes. Stay tuned for the next big update that will definitely confuse you in the best way possible.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            answer.classList.toggle('active');
+            const icon = question.querySelector('i');
+            icon.classList.toggle('fa-chevron-up');
+            icon.classList.toggle('fa-chevron-down');
+        });
+    });
+</script>
 
     <footer>
         <p>made with love by coconutz</p>
