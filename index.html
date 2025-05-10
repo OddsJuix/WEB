@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="moxxie vr is like if a gorilla, a meme, and pure chaos had a baby in a vr headset">
+<meta name="keywords" content="moxxie vr, vr chaos, funny vr game, bonkers virtual reality, gorilla tag but unhinged, moxxie, funny monkeys, food">
+<meta name="author" content="probably not legally responsible">
+<meta property="og:title" content="moxxie vr - unreasonably chaotic vr experience">
+<meta property="og:description" content="step into a vr universe so unstable even your headset might file a complaint">
+<meta property="og:url" content="http://moxxievr.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="moxxie vr - we warned you">
+<meta name="twitter:description" content="moxxie vr is what happens when sleep deprivation meets gorilla tag movies">
     <title>MoxxieVR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1840,6 +1850,12 @@
 
     <div class="banana-cursor">🍌</div>
 
+    <div id="moxxie-loading-wrapper">
+  <iframe src="https://raw.githubusercontent.com/OddsJuix/WEB/main/assets/moxxie-loading.html" 
+          frameborder="0" 
+          style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;"></iframe>
+
+    </div>
     <nav>
         <a href="#home" class="logo">MoxxieVR</a>
         <div class="nav-links">
@@ -2724,5 +2740,13 @@
             console.log("Random gorilla shapes appearing");
         }
     </script>
+    <script>
+  window.addEventListener("load", () => {
+    const wrapper = document.getElementById("moxxie-loading-wrapper");
+    wrapper.style.transition = "opacity 1s ease";
+    wrapper.style.opacity = 0;
+    setTimeout(() => wrapper.remove(), 1000);
+  });
+</script>
 </body>
 </html>
