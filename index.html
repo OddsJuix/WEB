@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoxxieVR - Gorilla Tag YouTuber | Gorilla Tag Content Creator</title>
+    <title>MoxxieVR</title>
     
     <meta name="description" content="Official website of MoxxieVR, a Gorilla Tag YouTuber with 14K subscribers. Join our community for Gorilla Tag gameplay, tips, tricks, and funny moments.">
     <meta name="keywords" content="MoxxieVR, Gorilla Tag, VR Gaming, Virtual Reality, YouTube Gaming, VR Content Creator">
@@ -11,14 +11,14 @@
     
     <meta property="og:title" content="MoxxieVR - Gorilla Tag YouTuber">
     <meta property="og:description" content="Official website of MoxxieVR, a Gorilla Tag YouTuber with 14K subscribers. Join our community for Gorilla Tag gameplay, tips, tricks, and funny moments.">
-    <meta property="og:image" content="OddsJuix/WEB/Moxxie.png">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
     <meta property="og:url" content="https://moxxievr.com">
     <meta property="og:type" content="website">
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MoxxieVR - Gorilla Tag YouTuber">
     <meta name="twitter:description" content="Official website of MoxxieVR, a Gorilla Tag YouTuber with 14K subscribers. Join our community for Gorilla Tag gameplay, tips, tricks, and funny moments.">
-    <meta name="twitter:image" content="OddsJuix/WEB/Moxxie.png">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
     
     <link rel="canonical" href="https://moxxievr.com">
     
@@ -2104,272 +2104,258 @@
             opacity: 1;
             visibility: visible;
         }
-        
-        @media (max-width: 1200px) {
-            section {
-                padding: 60px 20px;
-            }
-            
-            .hero h1 {
-                font-size: 54px;
-            }
-            
-            .hero p {
-                font-size: 20px;
-            }
-            
-            h2 {
-                font-size: 32px;
-            }
-            
-            h3 {
-                font-size: 22px;
-            }
+
+        /* Skip Button */
+        #skip-button {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            padding: 12px 24px;
+            background-color: rgba(255, 77, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 48px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            h3 {
-                font-size: 20px;
-            }
-            
-            .team-grid, .videos-grid, .social-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px;
-            }
-            
-            .team-img {
-                height: 220px;
-            }
-            
-            .video-thumbnail {
-                height: 180px;
-            }
+
+        #skip-button.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
+
+        #skip-button:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Advertisements */
+        .ad-banner {
+            background: linear-gradient(45deg, #ff4d00, #4d00ff);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .ad-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: adShine 3s infinite;
+        }
+
+        @keyframes adShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .ad-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 50;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .ad-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .video-ad {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9998;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-ad-content {
+            background-color: black;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .video-ad video {
+            width: 100%;
+            height: auto;
+        }
+
+        .ad-skip-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Game Styles */
+        #game-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #game-canvas {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            border: 3px solid var(--primary);
+            border-radius: 10px;
+            background-color: #000;
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+        }
+
+        .game-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .game-controls button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .game-controls button:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .game-info span {
+            color: var(--primary);
+        }
+
+        /* Interactive 3D Elements */
+        .interactive-3d {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-3d:hover {
+            transform: scale(1.1);
+        }
+
+        .interactive-3d canvas {
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.5);
+        }
+
+        .floating-3d-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .floating-3d-element:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Responsive adjustments for new elements */
         @media (max-width: 768px) {
-            section {
-                padding: 50px 15px;
-            }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: rgba(0, 0, 0, 0.9);
-                flex-direction: column;
-                padding: 20px;
-                z-index: 100;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .nav-links a {
-                display: block;
-                padding: 10px;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 40px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-                padding: 0 20px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            h3 {
-                font-size: 18px;
-            }
-            
-            .team-grid, .videos-grid, .social-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 15px;
-            }
-            
-            .team-img {
-                height: 200px;
-            }
-            
-            .video-thumbnail {
-                height: 160px;
-            }
-            
-            .play-icon {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .play-icon::before {
-                border-top: 12px solid transparent;
-                border-bottom: 12px solid transparent;
-                border-left: 16px solid white;
-            }
-            
-            .footer-links li {
-                margin: 5px 10px;
-            }
-            
-            .progress-container {
-                padding: 20px;
-            }
-            
-            .sub-progress-bar {
-                height: 25px;
-            }
-            
-            #loading-text {
-                font-size: 22px;
-                padding: 8px 16px;
-            }
-            
-            #progress-bar {
-                width: 250px;
-                height: 15px;
-            }
-            
-            #message-counter {
-                font-size: 16px;
-                padding: 8px 12px;
-            }
-            
-            .scroll-indicator {
-                width: 40px;
-                height: 40px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 20px;
-            }
-            
-            .cryptic-quote {
-                font-size: 10px;
-                max-width: 200px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            section {
-                padding: 40px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-            
-            .hero p {
-                font-size: 14px;
-                padding: 0 15px;
-            }
-            
-            h2 {
-                font-size: 24px;
-            }
-            
-            h3 {
-                font-size: 16px;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            
-            .team-grid, .videos-grid, .social-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .team-img {
-                height: 220px;
-            }
-            
-            .video-thumbnail {
-                height: 180px;
-            }
-            
-            .play-icon {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .play-icon::before {
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                border-left: 14px solid white;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-            }
-            
-            .footer-links li {
-                margin: 5px 0;
-            }
-            
-            .progress-container {
+            .ad-sidebar {
+                width: 150px;
+                right: 10px;
                 padding: 15px;
             }
             
-            .sub-progress-bar {
-                height: 20px;
+            #game-canvas {
+                height: 300px;
             }
             
-            #loading-text {
-                font-size: 18px;
-                padding: 6px 12px;
-            }
-            
-            #progress-bar {
-                width: 200px;
-                height: 12px;
-            }
-            
-            #message-counter {
+            .game-controls button {
+                margin: 5px;
+                padding: 8px 16px;
                 font-size: 14px;
-                padding: 6px 10px;
             }
             
-            .scroll-indicator {
-                width: 35px;
-                height: 35px;
-                bottom: 15px;
-                right: 15px;
-                font-size: 18px;
+            #skip-button {
+                bottom: 30px;
+                right: 30px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .ad-sidebar {
+                display: none;
             }
             
-            .cryptic-quote {
-                font-size: 8px;
-                max-width: 150px;
+            #game-canvas {
+                height: 250px;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
             }
         }
         
@@ -2420,6 +2406,7 @@
         <div id="progress-bar">
             <div id="progress"></div>
         </div>
+        <button id="skip-button">Skip Loading</button>
     </div>
 
     <div class="mouse-trailer"></div>
@@ -2494,18 +2481,53 @@
     </section>
 
     <section id="videos">
-        <h2 class="text-clip">Latest Video</h2>
+        <h2 class="text-clip">Latest Videos</h2>
         <div class="videos-grid">
             <div class="video-card animated-border glow-effect">
                 <div class="play-icon"></div>
                 <img src="Thumbnail.png" alt="Video Thumbnail" class="video-thumbnail">
                 <div class="video-info">
-                    <h3 class="text-shadow-pop">The Mummy “Falls Into Place” | A Gorilla Tag Movie</h3>
-                    <p>This is episode two of the mummy, biggest project ever. 400-500 views and 30-40 likes and you’ll get a ep:3.</p>
-                    <p>I really hope you guys enjoy this I spent so much time on this.</p>
+                    <h3 class="text-shadow-pop">Gorille Tag Movie</h3>
+                    <p>Insert Description here!</p>
                 </div>
+            </div>
         </div>
         <div class="hidden-clue" data-clue="Y2hhbm5lbA==" style="display: inline-block; width: 5px; height: 5px; background-color: rgba(255, 77, 0, 0.1); margin-top: 20px;"></div>
+    </section>
+
+    <!-- Advertisement Banner -->
+    <div class="ad-banner">
+        🎮 SPONSORED: Join r/developer4hire 🎮
+         <img src="Advertisement.png" alt="Advertisement" class="Advertisement">
+    </div>
+
+    <!-- Game Section -->
+    <section id="game">
+        <h2 class="text-clip">Play Gorilla Tag Mini-Game</h2>
+        <div id="game-section">
+            <div class="game-info">
+                <span>Score: <span id="score">0</span></span>
+                <span>Time: <span id="timer">60</span>s</span>
+                <span>Level: <span id="level">1</span></span>
+            </div>
+            <canvas id="game-canvas"></canvas>
+            <div class="game-controls">
+                <button id="start-game">Start Game</button>
+                <button id="pause-game">Pause</button>
+                <button id="reset-game">Reset</button>
+            </div>
+            <p style="text-align: center; margin-top: 15px; color: rgba(255, 255, 255, 0.7);">
+                Use WASD or Arrow Keys to move, Space to jump, Click to tag!
+            </p>
+        </div>
+    </section>
+
+    <!-- Interactive 3D Elements -->
+    <section id="interactive-3d">
+        <h2 class="text-clip">Interactive 3D Experience</h2>
+        <p class="text-center">Click and interact with these 3D elements!</p>
+        <div class="interactive-3d" id="interactive-sphere"></div>
+        <div class="interactive-3d" id="interactive-cube"></div>
     </section>
 
     <section id="content">
@@ -2605,12 +2627,6 @@
                 <p>Legend says that Flowzz stays up until 3 AM every night studying YouTube algorithms and sacrificing energy drinks to the monetization gods. We remain hopeful, but the YouTube gods are fickle. (Flowzz says to tell you "It's happening any day now!" while sobbing quietly.)</p>
             </div>
         </div>
-        <div class="faq-item animated-border glow-effect">
-            <div class="faq-question">Does OddsJuix have other members to help?</div>
-            <div class="faq-answer">
-                <p>Sadly no, OddsJuix needs at least a team of 3 members to work on the website for updates to come out every day.</p>
-            </div>
-        </div>
     </section>
 
     <footer>
@@ -2629,6 +2645,26 @@
     </footer>
 
     <!-- 3078617279747261636520646563:6f6465643a2068747470733a2f2f796f75747562652e636f6d2f706c61796c6973743f6c6973743d53454352455445434c5545 -->
+
+    <!-- Sidebar Advertisement -->
+    <div class="ad-sidebar" id="sidebar-ad">
+        <button class="ad-close" onclick="closeSidebarAd()">&times;</button>
+        <h4 style="color: var(--primary); margin-bottom: 10px;">VR Gaming Gear</h4>
+        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" 
+         alt="VR Headset" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
+        <p style="font-size: 12px; margin-bottom: 10px;">Get the latest VR equipment!</p>
+        <button class="btn" style="width: 100%; padding: 8px;">Shop Now</button>
+    </div>
+
+    <!-- Video Advertisement -->
+    <div class="video-ad" id="video-ad">
+        <div class="video-ad-content">
+            <video id="ad-video" muted>
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+            </video>
+            <button class="ad-skip-btn" id="skip-ad-btn" onclick="skipVideoAd()">Skip Ad</button>
+        </div>
+    </div>
 
     <script>
         let messageCount = 0;
@@ -3354,6 +3390,418 @@
         window.addEventListener('orientationchange', function() {
             console.log("The orientation of the screen is " + screen.orientation.type);
         });
-    </script>
+
+        // Skip button functionality
+        const skipButton = document.getElementById('skip-button');
+
+        setTimeout(() => {
+            skipButton.classList.add('visible');
+        }, 3000);
+
+        skipButton.addEventListener('click', () => {
+            loadingScreen.style.opacity = 0;
+            loadingScreen.style.transition = 'opacity 1s ease';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                animateElementsOnLoad();
+            }, 1000);
+        });
+
+        // Advertisement functionality
+        function closeSidebarAd() {
+            document.getElementById('sidebar-ad').style.display = 'none';
+        }
+
+        function showVideoAd() {
+            const videoAd = document.getElementById('video-ad');
+            const adVideo = document.getElementById('ad-video');
+            videoAd.style.display = 'flex';
+            adVideo.play();
+            
+            setTimeout(() => {
+                document.getElementById('skip-ad-btn').style.display = 'block';
+            }, 5000);
+        }
+
+        function skipVideoAd() {
+            document.getElementById('video-ad').style.display = 'none';
+        }
+
+        // Show video ad after 30 seconds
+        setTimeout(showVideoAd, 30000);
+
+        // Game functionality
+        class GorillaTagGame {
+            constructor() {
+                this.canvas = document.getElementById('game-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.canvas.width = 800;
+                this.canvas.height = 400;
+                
+                this.player = {
+                    x: 50,
+                    y: 300,
+                    width: 30,
+                    height: 30,
+                    color: '#ff4d00',
+                    velocityX: 0,
+                    velocityY: 0,
+                    speed: 5,
+                    jumpPower: 15,
+                    onGround: false
+                };
+                
+                this.targets = [];
+                this.score = 0;
+                this.timer = 60;
+                this.level = 1;
+                this.gameRunning = false;
+                this.keys = {};
+                
+                this.platforms = [
+                    {x: 0, y: 380, width: 800, height: 20},
+                    {x: 200, y: 300, width: 100, height: 20},
+                    {x: 400, y: 250, width: 100, height: 20},
+                    {x: 600, y: 200, width: 100, height: 20}
+                ];
+                
+                this.setupEventListeners();
+                this.generateTargets();
+            }
+            
+            setupEventListeners() {
+                document.addEventListener('keydown', (e) => {
+                    this.keys[e.key.toLowerCase()] = true;
+                });
+                
+                document.addEventListener('keyup', (e) => {
+                    this.keys[e.key.toLowerCase()] = false;
+                });
+                
+                this.canvas.addEventListener('click', (e) => {
+                    if (!this.gameRunning) return;
+                    
+                    const rect = this.canvas.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const clickY = e.clientY - rect.top;
+                    
+                    this.targets.forEach((target, index) => {
+                        const distance = Math.sqrt(
+                            Math.pow(clickX - target.x, 2) + Math.pow(clickY - target.y, 2)
+                        );
+                        
+                        if (distance < target.radius) {
+                            this.targets.splice(index, 1);
+                            this.score += 10;
+                            this.updateScore();
+                            
+                            // Add particle effect
+                            this.createParticles(target.x, target.y);
+                        }
+                    });
+                });
+                
+                document.getElementById('start-game').addEventListener('click', () => this.startGame());
+                document.getElementById('pause-game').addEventListener('click', () => this.pauseGame());
+                document.getElementById('reset-game').addEventListener('click', () => this.resetGame());
+            }
+            
+            generateTargets() {
+                for (let i = 0; i < 5; i++) {
+                    this.targets.push({
+                        x: Math.random() * (this.canvas.width - 40) + 20,
+                        y: Math.random() * (this.canvas.height - 100) + 20,
+                        radius: 15,
+                        color: '#00ff4d',
+                        velocityX: (Math.random() - 0.5) * 2,
+                        velocityY: (Math.random() - 0.5) * 2
+                    });
+                }
+            }
+            
+            createParticles(x, y) {
+                // Simple particle effect
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        this.ctx.fillStyle = `rgba(0, 255, 77, ${1 - i/10})`;
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            x + (Math.random() - 0.5) * 50,
+                            y + (Math.random() - 0.5) * 50,
+                            Math.random() * 5,
+                            0,
+                            Math.PI * 2
+                        );
+                        this.ctx.fill();
+                    }, i * 50);
+                }
+            }
+            
+            updatePlayer() {
+                // Handle input
+                if (this.keys['a'] || this.keys['arrowleft']) {
+                    this.player.velocityX = -this.player.speed;
+                } else if (this.keys['d'] || this.keys['arrowright']) {
+                    this.player.velocityX = this.player.speed;
+                } else {
+                    this.player.velocityX *= 0.8; // Friction
+                }
+                
+                if ((this.keys[' '] || this.keys['w'] || this.keys['arrowup']) && this.player.onGround) {
+                    this.player.velocityY = -this.player.jumpPower;
+                    this.player.onGround = false;
+                }
+                
+                // Apply gravity
+                this.player.velocityY += 0.8;
+                
+                // Update position
+                this.player.x += this.player.velocityX;
+                this.player.y += this.player.velocityY;
+                
+                // Check platform collisions
+                this.player.onGround = false;
+                this.platforms.forEach(platform => {
+                    if (this.player.x < platform.x + platform.width &&
+                        this.player.x + this.player.width > platform.x &&
+                        this.player.y < platform.y + platform.height &&
+                        this.player.y + this.player.height > platform.y) {
+                        
+                        if (this.player.velocityY > 0) { // Falling
+                            this.player.y = platform.y - this.player.height;
+                            this.player.velocityY = 0;
+                            this.player.onGround = true;
+                        }
+                    }
+                });
+                
+                // Boundary checks
+                if (this.player.x < 0) this.player.x = 0;
+                if (this.player.x > this.canvas.width - this.player.width) {
+                    this.player.x = this.canvas.width - this.player.width;
+                }
+                if (this.player.y > this.canvas.height) {
+                    this.resetPlayerPosition();
+                }
+            }
+            
+            updateTargets() {
+                this.targets.forEach(target => {
+                    target.x += target.velocityX;
+                    target.y += target.velocityY;
+                    
+                    if (target.x < target.radius || target.x > this.canvas.width - target.radius) {
+                        target.velocityX *= -1;
+                    }
+                    if (target.y < target.radius || target.y > this.canvas.height - target.radius) {
+                        target.velocityY *= -1;
+                    }
+                });
+            }
+            
+            draw() {
+                // Clear canvas
+                this.ctx.fillStyle = '#000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw platforms
+                this.ctx.fillStyle = '#666';
+                this.platforms.forEach(platform => {
+                    this.ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+                });
+                
+                // Draw player
+                this.ctx.fillStyle = this.player.color;
+                this.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+                
+                // Draw targets
+                this.ctx.fillStyle = target.color;
+                this.ctx.beginPath();
+                this.ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
+                this.ctx.fill();
+            });
+            
+            // Draw UI
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = '16px Arial';
+            this.ctx.fillText(`Targets: ${this.targets.length}`, 10, 30);
+        }
+        
+        gameLoop() {
+            if (!this.gameRunning) return;
+            
+            this.updatePlayer();
+            this.updateTargets();
+            this.draw();
+            
+            // Check win condition
+            if (this.targets.length === 0) {
+                this.nextLevel();
+            }
+            
+            requestAnimationFrame(() => this.gameLoop());
+        }
+        
+        startGame() {
+            this.gameRunning = true;
+            this.startTimer();
+            this.gameLoop();
+        }
+        
+        pauseGame() {
+            this.gameRunning = !this.gameRunning;
+            if (this.gameRunning) {
+                this.gameLoop();
+            }
+        }
+        
+        resetGame() {
+            this.gameRunning = false;
+            this.score = 0;
+            this.timer = 60;
+            this.level = 1;
+            this.targets = [];
+            this.generateTargets();
+            this.resetPlayerPosition();
+            this.updateScore();
+            this.updateTimer();
+            this.updateLevel();
+            this.draw();
+        }
+        
+        resetPlayerPosition() {
+            this.player.x = 50;
+            this.player.y = 300;
+            this.player.velocityX = 0;
+            this.player.velocityY = 0;
+        }
+        
+        nextLevel() {
+            this.level++;
+            this.score += 50;
+            this.generateTargets();
+            this.updateScore();
+            this.updateLevel();
+        }
+        
+        startTimer() {
+            const timerInterval = setInterval(() => {
+                if (!this.gameRunning) return;
+                
+                this.timer--;
+                this.updateTimer();
+                
+                if (this.timer <= 0) {
+                    clearInterval(timerInterval);
+                    this.endGame();
+                }
+            }, 1000);
+        }
+        
+        endGame() {
+            this.gameRunning = false;
+            alert(`Game Over! Final Score: ${this.score}`);
+        }
+        
+        updateScore() {
+            document.getElementById('score').textContent = this.score;
+        }
+        
+        updateTimer() {
+            document.getElementById('timer').textContent = this.timer;
+        }
+        
+        updateLevel() {
+            document.getElementById('level').textContent = this.level;
+        }
+    }
+
+    // Initialize game
+    const game = new GorillaTagGame();
+
+    // Interactive 3D Elements
+    function createInteractive3D() {
+        const sphereContainer = document.getElementById('interactive-sphere');
+        const cubeContainer = document.getElementById('interactive-cube');
+        
+        // Create sphere scene
+        const sphereScene = new THREE.Scene();
+        const sphereCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const sphereRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        sphereRenderer.setSize(200, 200);
+        sphereContainer.appendChild(sphereRenderer.domElement);
+        
+        const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const sphereMaterial = new THREE.MeshPhongMaterial({
+            color: 0xff4d00,
+            emissive: 0xff2000,
+            shininess: 30
+        });
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphereScene.add(sphere);
+        
+        const sphereLight = new THREE.PointLight(0xffffff, 1, 100);
+        sphereLight.position.set(0, 0, 5);
+        sphereScene.add(sphereLight);
+        
+        sphereCamera.position.z = 3;
+        
+        // Create cube scene
+        const cubeScene = new THREE.Scene();
+        const cubeCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const cubeRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        cubeRenderer.setSize(200, 200);
+        cubeContainer.appendChild(cubeRenderer.domElement);
+        
+        const cubeGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+        const cubeMaterial = new THREE.MeshPhongMaterial({
+            color: 0x00ff4d,
+            emissive: 0x004d00,
+            shininess: 30
+        });
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cubeScene.add(cube);
+        
+        const cubeLight = new THREE.PointLight(0xffffff, 1, 100);
+        cubeLight.position.set(0, 0, 5);
+        cubeScene.add(cubeLight);
+        
+        cubeCamera.position.z = 3;
+        
+        // Animation and interaction
+        let sphereRotationSpeed = 0.01;
+        let cubeRotationSpeed = 0.01;
+        
+        sphereContainer.addEventListener('click', () => {
+            sphereRotationSpeed = sphereRotationSpeed === 0.01 ? 0.1 : 0.01;
+            sphere.material.color.setHex(Math.random() * 0xffffff);
+        });
+        
+        cubeContainer.addEventListener('click', () => {
+            cubeRotationSpeed = cubeRotationSpeed === 0.01 ? 0.1 : 0.01;
+            cube.material.color.setHex(Math.random() * 0xffffff);
+        });
+        
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            
+            sphere.rotation.x += sphereRotationSpeed;
+            sphere.rotation.y += sphereRotationSpeed;
+            
+            cube.rotation.x += cubeRotationSpeed;
+            cube.rotation.y += cubeRotationSpeed;
+            
+            sphereRenderer.render(sphereScene, sphereCamera);
+            cubeRenderer.render(cubeScene, cubeCamera);
+        }
+        
+        animate3D();
+    }
+
+    // Initialize interactive 3D elements when page loads
+    window.addEventListener('load', () => {
+        setTimeout(createInteractive3D, 2000);
+    });
+</script>
 </body>
 </html>
